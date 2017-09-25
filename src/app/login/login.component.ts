@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// The custom Material Module
-// import {CustomMaterialModule} from '../material/custom-material.module';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
 
