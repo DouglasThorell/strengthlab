@@ -25,10 +25,11 @@ import {SharedModule} from './shared/modules/shared.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
+import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 
 // RoutingModule
 import { AppRoutingModule } from './app-routing.module';
-import { ExerciseListComponent } from './exercise-list/exercise-list.component';
+
 
 
 
