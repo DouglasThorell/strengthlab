@@ -5,8 +5,11 @@
 <!--login button-->
 <button (click)="loginWithGoogle()">Login with Google</button>
 
-<ul>
-  <li class="text" *ngFor="let topic of topics | async">
-    {{topic.$value}}
-  </li>
-</ul>
+<app-navbar></app-navbar>
+
+<!--Test angular material button-->
+
+<router-outlet></router-outlet>
+
+<app-footer></app-footer>
+

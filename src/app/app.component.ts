@@ -14,20 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Hello World!!!';
-  user = null;
-  topics: FirebaseListObservable<any[]>;
-  constructor(
-    private auth: AuthService,
-    public db: AngularFireDatabase) { }
-  ngOnInit() {
-    this.auth.getAuthState().subscribe(
-      (user) => this.user = user);
-    this.topics = this.db.list('/topics');
-  }
-  loginWithGoogle() {
-    this.auth.loginWithGoogle();
-  }
 }
 
