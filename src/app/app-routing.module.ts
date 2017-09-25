@@ -8,7 +8,7 @@ import {ExerciseListComponent} from './exercise-list/exercise-list.component';
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'exercise-list', component: ExerciseListComponent}
+  {path: 'exercise-list', component: ExerciseListComponent},
 ]
 
 @NgModule({
