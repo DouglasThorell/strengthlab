@@ -5,11 +5,17 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
+// Material
+
+import { MdButtonModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    // Material
+    MdButtonModule,
     BrowserModule,
     FormsModule,
     HttpModule
