@@ -6,9 +6,8 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-// Material
-
-import { MdButtonModule } from '@angular/material';
+// Shared Module
+import {SharedModule} from './shared/modules/shared.module';
 
 // Our components
 import { NavbarComponent } from './navbar/navbar.component';
@@ -19,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,8 +28,9 @@ import { ExerciseListComponent } from './exercise-list/exercise-list.component';
     ExerciseListComponent
   ],
   imports: [
-    // Material
-    MdButtonModule,
+    // Shared
+    SharedModule,
+    // Core
     BrowserModule,
     FormsModule,
     HttpModule,
