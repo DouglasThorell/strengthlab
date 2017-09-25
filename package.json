@@ -23,7 +23,9 @@
     "@angular/platform-browser-dynamic": "^4.3.6",
     "@angular/platform-server": "^4.3.6",
     "@angular/router": "^4.3.6",
+    "angularfire2": "^4.0.0-rc.2",
     "core-js": "^2.4.1",
+    "firebase": "^4.4.0",
     "rxjs": "^5.1.0",
     "typescript": "^2.5.2",
     "zone.js": "^0.8.17"
