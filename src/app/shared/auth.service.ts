@@ -1,32 +1,145 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import {Injectable} from '@angular/core';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
-
+import {AngularFireDatabase} from 'angularfire2/database';
 
 @Injectable()
 export class AuthService {
-  private authState: Observable<firebase.User>;
-  private currentUser: firebase.User = null;
-  constructor(public afAuth: AngularFireAuth) {
-    this.authState = this.afAuth.authState;
-    this.authState.subscribe(user => {
-      if (user) {
-        this.currentUser = user;
-      } else {
-        this.currentUser = null;
-      }
+
+  authState: any = null;
+  user: Observable<firebase.User>;
+
+  constructor(private afAuth: AngularFireAuth,
+              private db: AngularFireDatabase,
+              private router: Router
+  ) {
+    this.afAuth.authState.subscribe((auth) => {
+      this.authState = auth;
     });
   }
-  getAuthState() {
-    return this.authState;
+  // Returns true if user is logged in
+  get authenticated(): boolean {
+    return this.authState !== null;
   }
+  // Return current user data
+  get currentUser(): any {
+    return this.authenticated ? this.authState : null;
+  }
+  // Returns authstate (look into this)
+  get currentUserObservable(): any {
+    return this.afAuth.authState;
+  }
+  // Returns UID
+  get currentUserId(): String {
+    return this.authenticated ? this.authState.uid : '';
+  }
+  // Anonymous
+  get currentUserAnonymous(): boolean {
+    return this.authenticated ? this.authState.isAnonymous : false;
+  }
+
+  // Return Username or Guest if not logged in
+  get currentUserDisplayName(): String {
+    if (!this.authState) {return 'Guest'; }
+    if (this.currentUserAnonymous) { return 'Anonymous'; }
+    {return this.authState['displayName'] || 'No name'; }
+  }
+
+  // Various login functions
+
   loginWithGoogle() {
-    return this.afAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider());
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.socialSignIn(provider);
+  }
+
+  facebookLogin() {
+    const provider = new firebase.auth.FacebookAuthProvider()
+    return this.socialSignIn(provider);
+  }
+
+  twitterLogin(){
+    const provider = new firebase.auth.TwitterAuthProvider()
+    return this.socialSignIn(provider);
+  }
+
+  githubLogin() {
+    const provider = new firebase.auth.GithubAuthProvider()
+    return this.socialSignIn(provider);
+  }
+
+  // Generic social login
+  socialSignIn(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then((credential) => {
+        this.authState = credential.user;
+        this.updateUserData();
+      })
+      .catch(error => console.log(error));
+  }
+
+  //// Anonymous Auth ////
+
+  anonymousLogin() {
+    return this.afAuth.auth.signInAnonymously()
+      .then((user) => {
+        this.authState = user
+        this.updateUserData();
+      })
+      .catch(error => console.log(error));
+  }
+
+  //// Email/Password Auth ////
+
+  emailSignUp(email: string, password: string) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        this.authState = user
+        this.updateUserData();
+      })
+      .catch(error => console.log(error));
+  }
+
+  emailLogin(email: string, password: string) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        this.authState = user
+        this.updateUserData();
+      })
+      .catch(error => console.log(error));
+  }
+
+  // Sends email allowing user to reset password
+  resetPassword(email: string) {
+    const auth = firebase.auth();
+
+    return auth.sendPasswordResetEmail(email)
+      .then(() => console.log('email sent'))
+      .catch((error) => console.log(error));
+  }
+
+
+  // Sign Out
+  logout(): void {
+    this.afAuth.auth.signOut();
+    this.router.navigate(['/']);
+  }
+
+  //// Helpers ////
+
+  private updateUserData(): void {
+    // Writes user name and email to realtime db
+    // useful if your app displays information about users or for admin features
+
+    const path = `users/${this.currentUserId}`; // Endpoint on firebase
+    const data = {
+      email: this.authState.email,
+      name: this.authState.displayName
+    };
+
+    this.db.object(path).update(data)
+      .catch(error => console.log(error));
+
   }
 }
-
-
-
-

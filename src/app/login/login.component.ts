@@ -1,8 +1,6 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
-import { AuthService} from '../shared/auth.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../shared/auth.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -11,18 +9,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user = null;
-  topics: FirebaseListObservable<any[]>;
-  constructor(
-    private auth: AuthService,
-    public db: AngularFireDatabase) { }
-  ngOnInit() {
-    this.auth.getAuthState().subscribe(
-      (user) => this.user = user);
-    this.topics = this.db.list('/topics');
+
+  constructor(public authService: AuthService, private router: Router) { }
+
+  login() {
+    this.authService.loginWithGoogle().then((data) => {
+      this.router.navigate(['home']);
+    });
+
   }
-  loginWithGoogle() {
-    this.auth.loginWithGoogle();
+  logout() {
+    this.authService.logout();
+  }
+
+  ngOnInit() {
+    // go straight to main screen, just for developing
+    if (this.authService.authenticated) {
+
+      {
+        this.router.navigate(['home']);
+      }
+    }
   }
 
 }
