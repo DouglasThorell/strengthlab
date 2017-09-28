@@ -25,10 +25,12 @@ import {SharedModule} from './shared/modules/shared.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
-import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 
 // RoutingModule
 import { AppRoutingModule } from './app-routing.module';
+import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
+import { ExerciseFormComponent } from './exercise/exercise-form/exercise-form.component';
+import {ExerciseModule} from "./exercise/shared/exercise.module";
 
 
 
@@ -42,12 +44,12 @@ import { AppRoutingModule } from './app-routing.module';
     MembersComponent,
     NavbarComponent,
     FooterComponent,
-    HomeComponent,
-    ExerciseListComponent
+    HomeComponent
   ],
   imports: [
     // Shared
     SharedModule,
+    ExerciseModule,
     // Core
     BrowserModule,
     FormsModule,
