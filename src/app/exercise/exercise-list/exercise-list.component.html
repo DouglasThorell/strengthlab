@@ -1,0 +1,11 @@
+<p>
+  exercise-list works!
+</p>
+
+<md-list *ngFor="let exercise of exercises | async">
+  <app-exercise-detail [exercise]='exercise'></app-exercise-detail>
+  <md-divider></md-divider>
+</md-list>
+
+
+<app-exercise-form></app-exercise-form>
