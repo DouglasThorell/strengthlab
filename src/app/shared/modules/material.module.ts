@@ -1,16 +1,24 @@
 // Keep all material modules imported and exported in this file
 
 import {
-  MdButtonModule
+  MdButtonModule, MdFormFieldModule, MatInputModule, MatListModule, MatToolbarModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 
 @NgModule({
   imports: [
-    MdButtonModule
+    MdButtonModule,
+    MdFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatToolbarModule
   ],
   exports: [
-    MdButtonModule
+    MdButtonModule,
+    MdFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatToolbarModule
   ],
 })
 

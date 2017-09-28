@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ExerciseService} from '../shared/exercise.service';
+import {Exercise} from '../shared/exercise';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExerciseDetailComponent implements OnInit {
 
-  constructor() { }
+  @Input() exercise: Exercise;
+
+  constructor(private exerciseService: ExerciseService) { }
 
   ngOnInit() {
+  }
+
+  deleteExercise() {
+    this.exerciseService.deleteExercise(this.exercise.$key)
   }
 
 }

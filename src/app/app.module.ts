@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
+// Other Modules
+import {ExerciseModule} from './exercise/shared/exercise.module';
+
 // Angular fire
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -30,7 +33,8 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
 import { ExerciseFormComponent } from './exercise/exercise-form/exercise-form.component';
-import {ExerciseModule} from "./exercise/shared/exercise.module";
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -50,6 +54,7 @@ import {ExerciseModule} from "./exercise/shared/exercise.module";
     // Shared
     SharedModule,
     ExerciseModule,
+    BrowserAnimationsModule,
     // Core
     BrowserModule,
     FormsModule,
