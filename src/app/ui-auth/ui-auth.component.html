@@ -1,0 +1,5 @@
+<div *ngIf="authService.currentUser">
+  Logged in as {{authService.currentUserDisplayName}}
+  <md-icon><img [src]="authService.currentUser.photoURL" height="40px"></md-icon>
+  <button md-raised-button="" (click)="logout()">Log Out</button>
+</div>
