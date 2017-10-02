@@ -29,8 +29,8 @@ export class ExerciseDetailComponent implements OnInit {
 
   openDialog() {
     let dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {
-      width: '400px',
-      height: '400px',
+      // width: '400px',
+      // height: '400px',
       data: {name: this.exercise.name}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -51,7 +51,7 @@ export class ExerciseDetailComponent implements OnInit {
     constructor(public dialogRef: MdDialogRef<ExerciseDetailDialogComponent>,
     @Inject(MD_DIALOG_DATA) public data: any) {}
 
-    onNoClick(): void {
+    closeDialog() {
       this.dialogRef.close();
     }
   }
