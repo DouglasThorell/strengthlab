@@ -24,17 +24,18 @@ export class ExerciseDetailComponent implements OnInit {
   }
 
   updateExercise() {
-    this.exerciseService.updateExercise(this.exercise.$key, this.name)
+    this.exerciseService.updateExercise(this.exercise.$key, this.exercise)
   }
 
-  openDialog(): void {
+  openDialog() {
     let dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {
       width: '400px',
-      data: {name: this.name}
+      data: {name: this.exercise.name}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('dialog closed');
+      console.log(`dialog closed with result: ${result}`);
       this.exercise.name = result;
+      this.updateExercise();
     });
     dialogRef.afterOpen().subscribe(result => {
       console.log('dialog opened');

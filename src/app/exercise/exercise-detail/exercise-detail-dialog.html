@@ -1,6 +1,7 @@
-<p>DIALOG</p>
+<p>Change exercise name</p>
 <md-form-field>
 <input mdInput
        [(ngModel)]="name"
-       placeholder="exercise name">
+       placeholder="new exercise name">
 </md-form-field>
+<button md-raised-button="" md-dialog-close="{{name}}">Change</button>

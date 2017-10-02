@@ -32,7 +32,6 @@ export class ExerciseService {
     this.exercises = this.db.list(`exercises/${this.userId}`, {
       query: query
     });
-    console.log('getExerciseList run from service, basepath: ' + this.basePath)
     return this.exercises
   }
 
