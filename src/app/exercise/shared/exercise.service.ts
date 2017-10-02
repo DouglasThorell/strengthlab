@@ -5,7 +5,7 @@ import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} f
 import {Exercise} from './exercise';
 // Auth
 import {AuthService} from '../../shared/auth.service';
-import {AngularFireAuth} from "angularfire2/auth";
+import {AngularFireAuth} from 'angularfire2/auth';
 
 
 
