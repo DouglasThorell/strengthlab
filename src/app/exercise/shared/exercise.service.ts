@@ -51,7 +51,7 @@ export class ExerciseService {
 
 
   // Update an exisiting item
-  updateItem(key: string, value: any): void {
+  updateExercise(key: string, value: any): void {
     this.exercises.update(key, value)
       .catch(error => this.handleError(error))
   }

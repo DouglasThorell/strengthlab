@@ -1,7 +1,13 @@
 // Keep all material modules imported and exported in this file
 
 import {
-  MdButtonModule, MdFormFieldModule, MatInputModule, MatListModule, MatToolbarModule, MatIconModule
+  MdButtonModule,
+  MdFormFieldModule,
+  MatInputModule,
+  MatListModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatDialogModule, MdDialog
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 
@@ -12,7 +18,8 @@ import {NgModule} from '@angular/core';
     MatInputModule,
     MatListModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   exports: [
     MdButtonModule,
@@ -20,8 +27,10 @@ import {NgModule} from '@angular/core';
     MatInputModule,
     MatListModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
+  providers: [MdDialog]
 })
 
 export class MaterialModule {
