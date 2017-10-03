@@ -12,7 +12,6 @@ export class ExerciseDetailComponent implements OnInit {
 
   @Input() exercise: Exercise;
   name: string;
-  oldName: string;
 
   constructor(private exerciseService: ExerciseService, public dialog: MdDialog) {
   }
@@ -53,6 +52,9 @@ export class ExerciseDetailComponent implements OnInit {
     @Inject(MD_DIALOG_DATA) public data: any) {}
 
     closeDialog() {
+      this.dialogRef.close();
+    }
+    onNoClick(): void {
       this.dialogRef.close();
     }
   }

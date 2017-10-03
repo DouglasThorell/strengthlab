@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 // Other Modules
 import {ExerciseModule} from './exercise/shared/exercise.module';
+import {TrainingSetModule} from './training-set/training-set.module';
 
 // Angular fire
 import { AngularFireModule } from 'angularfire2';
@@ -53,7 +54,9 @@ import { UiAuthComponent } from './ui-auth/ui-auth.component';
   imports: [
     // Shared
     SharedModule,
+    // Work it baby
     ExerciseModule,
+    TrainingSetModule,
     BrowserAnimationsModule,
     // Core
     BrowserModule,
