@@ -12,6 +12,7 @@ export class ExerciseDetailComponent implements OnInit {
 
   @Input() exercise: Exercise;
   name: string;
+  oldName: string;
 
   constructor(private exerciseService: ExerciseService, public dialog: MdDialog) {
   }
@@ -31,7 +32,7 @@ export class ExerciseDetailComponent implements OnInit {
     let dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {
       // width: '400px',
       // height: '400px',
-      data: {name: this.exercise.name}
+      data: {name: this.exercise.name, oldName: this.exercise.name}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`dialog closed with result: ${result}`);
