@@ -31,10 +31,9 @@ import { HomeComponent } from './home/home.component';
 
 // RoutingModule
 import { AppRoutingModule } from './app-routing.module';
-import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
-import { ExerciseFormComponent } from './exercise/exercise-form/exercise-form.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { UiAuthComponent } from './ui-auth/ui-auth.component';
 
 
 
@@ -48,7 +47,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MembersComponent,
     NavbarComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    UiAuthComponent,
   ],
   imports: [
     // Shared

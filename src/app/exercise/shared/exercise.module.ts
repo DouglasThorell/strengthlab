@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SharedModule} from '../../shared/modules/shared.module';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {ExerciseListComponent} from '../exercise-list/exercise-list.component';
-import {ExerciseDetailComponent} from '../exercise-detail/exercise-detail.component';
+import {ExerciseDetailComponent, ExerciseDetailDialogComponent} from '../exercise-detail/exercise-detail.component';
 import {ExerciseFormComponent} from '../exercise-form/exercise-form.component';
 import {ExerciseService} from './exercise.service';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -19,7 +19,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   declarations: [
     ExerciseListComponent,
     ExerciseDetailComponent,
+    ExerciseDetailDialogComponent,
     ExerciseFormComponent
+  ],
+  entryComponents: [
+  ExerciseDetailDialogComponent
   ],
   providers: [
     ExerciseService

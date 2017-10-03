@@ -1,0 +1,13 @@
+<h2 md-dialog-title>Change exercise name</h2>
+
+<md-form-field>
+<input mdInput
+       [(ngModel)]="data.name"
+       placeholder="new exercise name">
+</md-form-field>
+
+<md-dialog-actions>
+  <button md-raised-button [mat-dialog-close]="data.name">Change</button>
+  <button md-raised-button [mat-dialog-close]="data.name">Cancel</button>
+</md-dialog-actions>
+

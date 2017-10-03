@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 // Our class exercise
 import {Exercise} from './exercise';
+// Auth
+import {AuthService} from '../../shared/auth.service';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 
 
@@ -15,13 +18,18 @@ export class ExerciseService {
   exercises: FirebaseListObservable<Exercise[]> = null; //  list of objects
   exercise: FirebaseObjectObservable<Exercise> = null; //   single object
 
-  constructor(private db: AngularFireDatabase) { }
+  userId: string;
 
+  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {this.userId = user.uid}
+    })
+  }
 
   // Return an observable list with optional query
   // You will usually call this from OnInit in a component
   getExerciseList(query = {}): FirebaseListObservable<Exercise[]> {
-    this.exercises = this.db.list(this.basePath, {
+    this.exercises = this.db.list(`exercises/${this.userId}`, {
       query: query
     });
     return this.exercises
@@ -29,7 +37,7 @@ export class ExerciseService {
 
   // Return a single observable item
   getExercise(key: string): FirebaseObjectObservable<Exercise> {
-    const exercisePath = `${this.basePath}/${key}`;
+    const exercisePath = `${this.basePath}/${this.userId}/${key}`;
     this.exercise = this.db.object(exercisePath)
     return this.exercise
   }
@@ -42,7 +50,7 @@ export class ExerciseService {
 
 
   // Update an exisiting item
-  updateItem(key: string, value: any): void {
+  updateExercise(key: string, value: any): void {
     this.exercises.update(key, value)
       .catch(error => this.handleError(error))
   }
