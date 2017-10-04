@@ -2,6 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {ExerciseService} from '../shared/exercise.service';
 import {Exercise} from '../shared/exercise';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -13,7 +14,7 @@ export class ExerciseDetailComponent implements OnInit {
   @Input() exercise: Exercise;
   name: string;
 
-  constructor(private exerciseService: ExerciseService, public dialog: MdDialog) {
+  constructor(private router: Router, private exerciseService: ExerciseService, public dialog: MdDialog) {
   }
 
   ngOnInit() {

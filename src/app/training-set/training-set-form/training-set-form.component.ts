@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TrainingSetService} from '../training-set.service';
+import {TrainingSet} from '../training-set';
 
 @Component({
   selector: 'app-training-set-form',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./training-set-form.component.scss']
 })
 export class TrainingSetFormComponent implements OnInit {
-
-  constructor() { }
+  trainingSet = new TrainingSet;
+  constructor(private trainingSetService: TrainingSetService) { }
 
   ngOnInit() {
+  }
+  createTrainingSet() {
+    this.trainingSetService.createTrainingSet(this.trainingSet);
+    this.trainingSet = new TrainingSet;
   }
 
 }

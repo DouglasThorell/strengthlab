@@ -1,3 +1,8 @@
-<p>
-  training-set-form works!
-</p>
+<md-form-field>
+  <input mdInput placeholder="Weight"
+         [(ngModel)]="trainingSet.weight"
+         #title='ngModel' autofocus>
+</md-form-field>
+
+
+<button md-raised-button color="accent" (click)='createTrainingSet()'>Add Set</button>

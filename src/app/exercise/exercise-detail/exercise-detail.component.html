@@ -2,4 +2,5 @@
   {{exercise.name || 'Name Error'}}
   <button md-button="" color="warn" (click)='deleteExercise()'>Delete Exercise!</button>
   <button md-button="" color="accent" (click)='openDialog()'>Update Exercise</button>
+  <button md-button="" color="primary" (click)="this.router.navigateByUrl('/training-set-list')">Add set</button>
 </md-list-item>

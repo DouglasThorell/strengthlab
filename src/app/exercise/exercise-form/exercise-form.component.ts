@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Exercise} from '../shared/exercise';
 import { ExerciseService} from '../shared/exercise.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-exercise-form',

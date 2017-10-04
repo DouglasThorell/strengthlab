@@ -17,12 +17,24 @@ export class TrainingSetService {
       if (user) {this.userId = user.uid}
     })
   }
+  // Return list of sets that belongs to userId
   getTrainingSetList(): FirebaseListObservable<TrainingSet[]> {
-    this.trainingSets = this.db.list(`this.basePath/$(this.userId)`);
+    this.trainingSets = this.db.list(`${this.basePath}/${this.userId}`);
     return this.trainingSets;
   }
-  getTrainingSet(): FirebaseObjectObservable<TrainingSet> {
+  // Get single set with key $key that belongs to userId
+  getTrainingSet(key: string): FirebaseObjectObservable<TrainingSet> {
+    this.trainingSet = this.db.object(`${this.basePath}/${this.userId}/${key}`)
     return this.trainingSet;
+  }
+  // Create a set by pushing in a TrainingSet object
+  createTrainingSet(trainingSet: TrainingSet) {
+    this.trainingSets.push(trainingSet).then(result =>
+      console.log('added new set')).catch(error => this.handleError(error)
+    )
+  }
+  handleError(error: Error) {
+    console.log(error);
   }
 
 }
