@@ -18,8 +18,9 @@ export class TrainingSetService {
     })
   }
   // Return list of sets that belongs to userId
-  getTrainingSetList(): FirebaseListObservable<TrainingSet[]> {
-    this.trainingSets = this.db.list(`${this.basePath}/${this.userId}`);
+  getTrainingSetList(query = {}): FirebaseListObservable<TrainingSet[]> {
+    this.trainingSets = this.db.list(`${this.basePath}/${this.userId}`,
+      {query: query});
     return this.trainingSets;
   }
   // Get single set with key $key that belongs to userId
