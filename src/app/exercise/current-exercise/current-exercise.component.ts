@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Exercise} from "../shared/exercise";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-current-exercise',
@@ -9,7 +10,9 @@ import {Exercise} from "../shared/exercise";
 export class CurrentExerciseComponent implements OnInit {
   @Input() exercise: Exercise;
   exerciseName: String;
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
   }

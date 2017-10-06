@@ -28,7 +28,7 @@ export class ExerciseDetailComponent implements OnInit {
     this.exerciseService.updateExercise(this.exercise.$key, this.exercise)
   }
   addSets() {
-    this.router.navigate(['/current-exercise', {exerciseName:'hello'}])
+    this.router.navigate(['/current-exercise', {exerciseName: 'hello'}])
     console.log('button: add sets pushed');
   }
 
