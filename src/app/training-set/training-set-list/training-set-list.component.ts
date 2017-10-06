@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FirebaseListObservable} from 'angularfire2/database';
 import {TrainingSet} from '../training-set';
 import {TrainingSetService} from '../training-set.service';
+import {Exercise} from '../../exercise/shared/exercise';
 
 @Component({
   selector: 'app-training-set-list',
@@ -9,6 +10,8 @@ import {TrainingSetService} from '../training-set.service';
   styleUrls: ['./training-set-list.component.scss']
 })
 export class TrainingSetListComponent implements OnInit {
+  @Input() exercise: Exercise; // Not sure if here or in training set detail
+
   trainingSets: FirebaseListObservable<TrainingSet[]>
 
   constructor(private trainingSetService: TrainingSetService) { }

@@ -35,6 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UiAuthComponent } from './ui-auth/ui-auth.component';
+import { CurrentExerciseComponent } from './exercise/current-exercise/current-exercise.component';
 
 
 
@@ -50,6 +51,7 @@ import { UiAuthComponent } from './ui-auth/ui-auth.component';
     FooterComponent,
     HomeComponent,
     UiAuthComponent,
+    CurrentExerciseComponent,
   ],
   imports: [
     // Shared

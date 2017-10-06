@@ -27,6 +27,10 @@ export class ExerciseDetailComponent implements OnInit {
   updateExercise() {
     this.exerciseService.updateExercise(this.exercise.$key, this.exercise)
   }
+  addSets() {
+    this.router.navigate(['/current-exercise', {exerciseName:'hello'}])
+    console.log('button: add sets pushed');
+  }
 
   openDialog() {
     let dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {

@@ -10,6 +10,7 @@ import {Exercise} from '../../exercise/shared/exercise';
 })
 export class TrainingSetFormComponent implements OnInit { // @Input() exercise: Exercise;
   trainingSet = new TrainingSet;
+  @Input() exercise: Exercise;
   constructor(private trainingSetService: TrainingSetService) { }
 
   ngOnInit() {
