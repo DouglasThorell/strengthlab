@@ -2,6 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {ExerciseService} from '../shared/exercise.service';
 import {Exercise} from '../shared/exercise';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -13,7 +14,7 @@ export class ExerciseDetailComponent implements OnInit {
   @Input() exercise: Exercise;
   name: string;
 
-  constructor(private exerciseService: ExerciseService, public dialog: MdDialog) {
+  constructor(private router: Router, private exerciseService: ExerciseService, public dialog: MdDialog) {
   }
 
   ngOnInit() {
@@ -26,12 +27,21 @@ export class ExerciseDetailComponent implements OnInit {
   updateExercise() {
     this.exerciseService.updateExercise(this.exercise.$key, this.exercise)
   }
+  addSets() {
+    this.router.navigate(['/current-exercise', {exerciseName: this.exercise.name}])
+    console.log('button: add sets pushed');
+  } // Debugging with this implementation
+
+  startSession() {
+    this.router.navigate(['/training-set-form', {exerciseKey: this.exercise.$key}])
+    console.log('using startSession function')
+  } // trying this way, choose the one that works =)
 
   openDialog() {
     let dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {
       // width: '400px',
       // height: '400px',
-      data: {name: this.exercise.name}
+      data: {name: this.exercise.name, oldName: this.exercise.name}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`dialog closed with result: ${result}`);
@@ -52,6 +62,9 @@ export class ExerciseDetailComponent implements OnInit {
     @Inject(MD_DIALOG_DATA) public data: any) {}
 
     closeDialog() {
+      this.dialogRef.close();
+    }
+    onNoClick(): void {
       this.dialogRef.close();
     }
   }

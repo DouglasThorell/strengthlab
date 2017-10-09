@@ -1,0 +1,18 @@
+<h2>{{exercise}}</h2>
+<app-training-set-list></app-training-set-list>
+
+
+<md-form-field>
+  <input mdInput placeholder="Weight"
+         [(ngModel)]="trainingSet.weight"
+         #title='ngModel' autofocus>
+</md-form-field>
+
+<md-form-field>
+  <input mdInput placeholder="Reps"
+         [(ngModel)]="trainingSet.reps"
+         #title='ngModel' autofocus>
+</md-form-field>
+
+
+<button md-raised-button color="accent" (click)='createTrainingSet()'>Add Set</button>
