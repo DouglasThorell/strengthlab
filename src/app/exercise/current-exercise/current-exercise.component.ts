@@ -1,6 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Exercise} from '../shared/exercise';
 import {ActivatedRoute} from '@angular/router';
+import {TrainingSetService} from '../../training-set/training-set.service';
 
 @Component({
   selector: 'app-current-exercise',
@@ -15,7 +16,7 @@ export class CurrentExerciseComponent implements OnInit, OnDestroy {
   private sub: any;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute, private trainingSetService: TrainingSetService
   ) { }
 
   ngOnInit() {

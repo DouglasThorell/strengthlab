@@ -1,4 +1,8 @@
-debugging: should be list of sets in array trainingsets
+debugging: Weight / Reps / Timestamp
 <md-list-item *ngFor="let trainingSet of trainingSets | async">
   {{trainingSet.weight || 'Name Error'}}
+  {{trainingSet.reps || 'Error in reps'}}
+  {{trainingSet.timeStamp | date: 'medium'}}
+  {{trainingSet.exercise }}
+  <md-divider></md-divider>
 </md-list-item>

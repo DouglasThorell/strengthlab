@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {TrainingSet} from './training-set';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {ExerciseService} from "../exercise/shared/exercise.service";
 
 @Injectable()
 export class TrainingSetService {
@@ -11,6 +12,7 @@ export class TrainingSetService {
   trainingSet: FirebaseObjectObservable<TrainingSet> = null;
   trainingSets: FirebaseListObservable<TrainingSet[]> = null;
   userId: string;
+  currentExercise: string;
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(user => {

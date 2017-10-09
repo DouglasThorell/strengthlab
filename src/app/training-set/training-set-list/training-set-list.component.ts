@@ -4,6 +4,8 @@ import {TrainingSet} from '../training-set';
 import {TrainingSetService} from '../training-set.service';
 import {Exercise} from '../../exercise/shared/exercise';
 
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-training-set-list',
   templateUrl: './training-set-list.component.html',

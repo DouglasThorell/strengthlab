@@ -30,7 +30,12 @@ export class ExerciseDetailComponent implements OnInit {
   addSets() {
     this.router.navigate(['/current-exercise', {exerciseName: this.exercise.name}])
     console.log('button: add sets pushed');
-  }
+  } // Debugging with this implementation
+
+  startSession() {
+    this.router.navigate(['/training-set-form', {exerciseKey: this.exercise.$key}])
+    console.log('using startSession function')
+  } // trying this way, choose the one that works =)
 
   openDialog() {
     let dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {
