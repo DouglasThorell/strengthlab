@@ -1,9 +1,11 @@
-<p>
-  current-exercise works!
-</p>
+<h2>{{exerciseName}}</h2>
 <md-card *ngIf="exerciseName">
-  {{exerciseName}}
+  {{exerciseName}} was clicked
 </md-card>
 <md-card *ngIf="!exerciseName">
-  no exercise
+  no exercise selected
+</md-card>
+
+<md-card>
+  This is debugging for sending params with router
 </md-card>
