@@ -40,7 +40,8 @@ export class ExerciseService {
   }
 
   updateExercise(exercise: Exercise, name: string) {
-    this.exerciseCollection.doc(exercise.id).update({name: name});
+    this.exerciseCollection.doc(exercise.id).update({name: name})
+      .catch(error => this.handleError(error));
   }
 
   createExercise(exercise: Exercise) {
