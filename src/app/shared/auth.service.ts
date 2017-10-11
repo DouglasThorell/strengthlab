@@ -145,7 +145,7 @@ export class AuthService {
     // Writes user name and email to realtime db
     // useful if your app displays information about users or for admin features
     const user = this.currentUserId;
-    const path = `users/${this.currentUserId}`; // Endpoint on firebase
+    // const path = `users/${this.currentUserId}`; // Endpoint on firebase (but we are not using realtimedb)
     const data = {
       email: this.authState.email,
       name: this.authState.displayName
