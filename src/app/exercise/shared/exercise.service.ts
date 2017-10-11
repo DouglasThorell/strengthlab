@@ -9,9 +9,9 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class ExerciseService {
 
-  exerciseCollection: AngularFirestoreCollection<Exercise>
-  exercises: Observable<Exercise[]>
-  error: string
+  exerciseCollection: AngularFirestoreCollection<Exercise>;
+  exercises: Observable<Exercise[]>;
+  error: string;
 
   constructor(private afs: AngularFirestore) {
     this.exerciseCollection = this.afs.collection<Exercise>('exercises');
