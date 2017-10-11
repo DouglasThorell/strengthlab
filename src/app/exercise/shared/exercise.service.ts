@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
-
 // FireStore
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-
 // Our class exercise
 import {Exercise} from './exercise';
-// Auth
-import {AuthService} from '../../shared/auth.service';
-import {AngularFireAuth} from 'angularfire2/auth';
+// Observable, see changes for firestore vs realtime db
 import {Observable} from 'rxjs/Observable';
-
-
 
 @Injectable()
 export class ExerciseService {
 
   exerciseCollection: AngularFirestoreCollection<Exercise>
   exercises: Observable<Exercise[]>
+  error: string
 
   constructor(private afs: AngularFirestore) {
     this.exerciseCollection = this.afs.collection<Exercise>('exercises');
-    this.exercises = this.exerciseCollection.valueChanges();
+    this.exercises = this.exerciseCollection.snapshotChanges()
+      .map(actions => {return actions.map(action => {
+        const data = action.payload.doc.data() as Exercise;
+        const id = action.payload.doc.id;
+        return {id, ...data};
+      })});
   }
   // Default error handling for all actions
   private handleError(error) {
     console.log(error)
+    this.error = error;
   }
 
 
@@ -32,16 +33,20 @@ export class ExerciseService {
     return this.exercises;
   }
 
-  deleteExercise($key: string) {
-    return null;
+  deleteExercise(exercise: Exercise) {
+    this.exerciseCollection.doc(exercise.id).delete()
+      .then(result => {console.log(exercise.name + ' deleted')})
+      .catch(error => {this.handleError(error)});
   }
 
-  updateExercise($key: string, exercise: Exercise) {
-    return null;
+  updateExercise(exercise: Exercise, name: string) {
+    this.exerciseCollection.doc(exercise.id).update({name: name});
   }
 
   createExercise(exercise: Exercise) {
-    return;
+    this.exerciseCollection.add(<Exercise>{name: exercise.name})
+      .then(result => {console.log(result.id + ' added to FireStore')}) // debugging
+      .catch(error => this.handleError(error));
   }
 }
 

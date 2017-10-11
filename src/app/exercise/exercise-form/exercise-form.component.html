@@ -1,8 +1,9 @@
 <md-form-field>
 <input mdInput placeholder="Exercise Name"
        [(ngModel)]="exercise.name"
-       #title='ngModel' autofocus>
+       #title='ngModel' autofocus
+       (keyup.enter)='createExercise()'>
 </md-form-field>
 
 
-<button md-raised-button color="accent" (click)='createExercise()'>Add Exercise</button>
+<button md-raised-button color="accent" (click)='createExercise()' >Add Exercise</button>

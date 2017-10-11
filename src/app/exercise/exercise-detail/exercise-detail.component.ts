@@ -21,11 +21,11 @@ export class ExerciseDetailComponent implements OnInit {
   }
 
   deleteExercise() {
-    this.exerciseService.deleteExercise(this.exercise.$key)
+    this.exerciseService.deleteExercise(this.exercise)
   }
 
   updateExercise() {
-    this.exerciseService.updateExercise(this.exercise.$key, this.exercise)
+    this.exerciseService.updateExercise(this.exercise, this.exercise.name)
   }
   addSets() {
     this.router.navigate(['/current-exercise', {exerciseName: this.exercise.name}])

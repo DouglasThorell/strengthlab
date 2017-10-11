@@ -1,6 +1,7 @@
 <p>
   exercise-list works!
 </p>
+<h2 *ngIf="error">{{error}}</h2>
 
 <md-list *ngFor="let exercise of exercises | async">
   <app-exercise-detail [exercise]='exercise'></app-exercise-detail>
