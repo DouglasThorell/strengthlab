@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 // FireStore
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 // Our class exercise
 import {Exercise} from './exercise';
 // Observable, see changes for firestore vs realtime db
 import {Observable} from 'rxjs/Observable';
+import {AuthService} from "../../shared/auth.service";
+import {User} from "../../shared/user";
+import {AngularFireAuth} from "angularfire2/auth";
+
 
 @Injectable()
 export class ExerciseService {
@@ -12,9 +16,17 @@ export class ExerciseService {
   exerciseCollection: AngularFirestoreCollection<Exercise>;
   exercises: Observable<Exercise[]>;
   error: string;
+  userId: string;
+  userExercise: AngularFirestoreDocument<any>;
 
-  constructor(private afs: AngularFirestore) {
-    this.exerciseCollection = this.afs.collection<Exercise>('exercises');
+  constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {this.userId = user.uid}
+    });
+
+    this.userExercise = afs.doc<any>('users/WFsddrth8RMeX1us3yQf');
+
+    this.exerciseCollection = this.userExercise.collection<Exercise>('exercises');
     this.exercises = this.exerciseCollection.snapshotChanges()
       .map(actions => {return actions.map(action => {
         const data = action.payload.doc.data() as Exercise;
