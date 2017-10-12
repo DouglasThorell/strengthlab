@@ -4,19 +4,32 @@ import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import {AngularFireDatabase} from 'angularfire2/database';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {User} from './user';
+
 
 @Injectable()
 export class AuthService {
 
   authState: any = null;
-  user: Observable<firebase.User>;
+  user: User;
+  userCollectionRef: AngularFirestoreCollection<User>;
+  user$: Observable<User[]>;
 
   constructor(private afAuth: AngularFireAuth,
-              private db: AngularFireDatabase,
+              private afs: AngularFirestore,
               private router: Router
   ) {
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth;
+    });
+    this.userCollectionRef = this.afs.collection<User>('users');
+    this.user$ = this.userCollectionRef.snapshotChanges().map(actions => {
+      return actions.map(action => {
+        const data = action.payload.doc.data() as User;
+        const id = action.payload.doc.id;
+        return { id, ...data };
+      });
     });
   }
   // Returns true if user is logged in
@@ -59,7 +72,7 @@ export class AuthService {
     return this.socialSignIn(provider);
   }
 
-  twitterLogin(){
+  twitterLogin() {
     const provider = new firebase.auth.TwitterAuthProvider()
     return this.socialSignIn(provider);
   }
@@ -131,14 +144,14 @@ export class AuthService {
   private updateUserData(): void {
     // Writes user name and email to realtime db
     // useful if your app displays information about users or for admin features
-
-    const path = `users/${this.currentUserId}`; // Endpoint on firebase
+    const user = this.currentUserId;
+    // const path = `users/${this.currentUserId}`; // Endpoint on firebase (but we are not using realtimedb)
     const data = {
       email: this.authState.email,
       name: this.authState.displayName
     };
 
-    this.db.object(path).update(data)
+    this.userCollectionRef.doc(this.authState.currentUserId).set(data)
       .catch(error => console.log(error));
 
   }

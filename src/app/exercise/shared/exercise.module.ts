@@ -6,7 +6,7 @@ import {ExerciseListComponent} from '../exercise-list/exercise-list.component';
 import {ExerciseDetailComponent, ExerciseDetailDialogComponent} from '../exercise-detail/exercise-detail.component';
 import {ExerciseFormComponent} from '../exercise-form/exercise-form.component';
 import {ExerciseService} from './exercise.service';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [

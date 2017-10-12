@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ExerciseService} from '../shared/exercise.service';
-import {FirebaseListObservable} from 'angularfire2/database';
 import {Exercise} from '../shared/exercise';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-exercise-list',
@@ -10,13 +10,14 @@ import {Exercise} from '../shared/exercise';
 })
 export class ExerciseListComponent implements OnInit {
 
-  exercises: FirebaseListObservable<Exercise[]>;
+  exercises: Observable<Exercise[]>
+  error: string
 
   constructor(private exerciseService: ExerciseService) { }
 
   ngOnInit() {
     this.exercises = this.exerciseService.getExerciseList();
-    this.exercises.subscribe()
+    this.error = this.exerciseService.error;
   }
 
 }

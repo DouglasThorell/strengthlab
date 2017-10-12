@@ -21,11 +21,11 @@ export class ExerciseDetailComponent implements OnInit {
   }
 
   deleteExercise() {
-    this.exerciseService.deleteExercise(this.exercise.$key)
+    this.exerciseService.deleteExercise(this.exercise)
   }
 
   updateExercise() {
-    this.exerciseService.updateExercise(this.exercise.$key, this.exercise)
+    this.exerciseService.updateExercise(this.exercise, this.exercise.name)
   }
   addSets() {
     this.router.navigate(['/current-exercise', {exerciseName: this.exercise.name}])
@@ -33,12 +33,11 @@ export class ExerciseDetailComponent implements OnInit {
   } // Debugging with this implementation
 
   startSession() {
-    this.router.navigate(['/training-set-form', {exerciseKey: this.exercise.$key}])
-    console.log('using startSession function')
+    console.log('using startSession function, TODO')
   } // trying this way, choose the one that works =)
 
   openDialog() {
-    let dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {
+    const dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {
       // width: '400px',
       // height: '400px',
       data: {name: this.exercise.name, oldName: this.exercise.name}
