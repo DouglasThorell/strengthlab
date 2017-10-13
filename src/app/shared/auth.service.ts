@@ -1,36 +1,37 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
-import {AngularFireDatabase} from 'angularfire2/database';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {User} from './user';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 
+interface User {
+  uid: string;
+  email: string;
+  photoURL?: string;
+  displayName?: string;
+  favoriteColor?: string;
+}
 
 @Injectable()
 export class AuthService {
 
   authState: any = null;
-  user: User;
   userCollectionRef: AngularFirestoreCollection<User>;
-  user$: Observable<User[]>;
+  user: Observable<User>;
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private router: Router
-  ) {
-    this.afAuth.authState.subscribe((auth) => {
-      this.authState = auth;
-    });
-    this.userCollectionRef = this.afs.collection<User>('users');
-    this.user$ = this.userCollectionRef.snapshotChanges().map(actions => {
-      return actions.map(action => {
-        const data = action.payload.doc.data() as User;
-        const id = action.payload.doc.id;
-        return { id, ...data };
-      });
-    });
+              private router: Router) {
+    // Get authentication data, then map to FireStore Userdata
+    this.user = this.afAuth.authState
+      .switchMap(user => {
+        if (user) { return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+        } else {
+          return Observable.of(null)
+        }
+      })
   }
   // Returns true if user is logged in
   get authenticated(): boolean {
@@ -87,7 +88,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
         this.authState = credential.user;
-        this.updateUserData();
+        this.updateUserData(credential.user);
       })
       .catch(error => console.log(error));
   }
@@ -98,7 +99,7 @@ export class AuthService {
     return this.afAuth.auth.signInAnonymously()
       .then((user) => {
         this.authState = user
-        this.updateUserData();
+        this.updateUserData(user);
       })
       .catch(error => console.log(error));
   }
@@ -109,7 +110,7 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user
-        this.updateUserData();
+        this.updateUserData(user);
       })
       .catch(error => console.log(error));
   }
@@ -118,7 +119,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user
-        this.updateUserData();
+        this.updateUserData(user);
       })
       .catch(error => console.log(error));
   }
@@ -134,25 +135,22 @@ export class AuthService {
 
 
   // Sign Out
-  logout(): void {
-    this.afAuth.auth.signOut();
-    this.router.navigate(['/']);
+  logout() {
+    this.afAuth.auth.signOut()
+      .then(() => {this.router.navigate(['/'])});
   }
 
   //// Helpers ////
 
-  private updateUserData(): void {
-    // Writes user name and email to realtime db
-    // useful if your app displays information about users or for admin features
-    const user = this.currentUserId;
-    // const path = `users/${this.currentUserId}`; // Endpoint on firebase (but we are not using realtimedb)
-    const data = {
-      email: this.authState.email,
-      name: this.authState.displayName
-    };
-
-    this.userCollectionRef.doc(this.authState.currentUserId).set(data)
-      .catch(error => console.log(error));
-
+  private updateUserData(user) {
+    // when login, write to FireStore (this should fix issue #22)
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const data: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL
+    }
+  return userRef.set(data);
   }
 }

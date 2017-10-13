@@ -6,7 +6,6 @@ import {Exercise} from './exercise';
 // Observable, see changes for firestore vs realtime db
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from "../../shared/auth.service";
-import {User} from "../../shared/user";
 import {AngularFireAuth} from "angularfire2/auth";
 
 
@@ -42,6 +41,7 @@ export class ExerciseService {
 
 
   getExerciseList() {
+    console.log(this.userId)
     return this.exercises;
   }
 
