@@ -6,8 +6,9 @@ import {Exercise} from './exercise';
 // Observable, see changes for firestore vs realtime db
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../shared/auth.service';
-
-
+import * as firebase from 'firebase';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {User} from '../../shared/user';
 
 @Injectable()
 export class ExerciseService {
@@ -15,13 +16,14 @@ export class ExerciseService {
   exerciseCollection: AngularFirestoreCollection<Exercise>;
   exercises: Observable<Exercise[]>;
   error: string;
-  currentUserId = 'AzaM12CPk0TN7DRFXi3nBj8WGJW2';
-
+  currentUserId: string;
   userExercise: AngularFirestoreDocument<any>;
 
   constructor(private afs: AngularFirestore, public authService: AuthService) {
 
-    this.userExercise = afs.doc<any>(`users/${this.currentUserId}`);
+    // get the user it from authservice, here is a problem
+
+    this.userExercise = afs.doc<any>(`users/${this.authService.currentUserId}`);
 
     this.exerciseCollection = this.userExercise.collection<Exercise>('exercises');
     this.exercises = this.exerciseCollection.snapshotChanges()
