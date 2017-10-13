@@ -11,7 +11,7 @@ interface User {
   email: string;
   photoURL?: string;
   displayName?: string;
-  favoriteColor?: string;
+  broScientist?: string;
 }
 
 @Injectable()
@@ -46,7 +46,7 @@ export class AuthService {
     return this.afAuth.authState;
   }
   // Returns UID
-  get currentUserId(): String {
+  get currentUserId(): string {
     return this.authenticated ? this.authState.uid : '';
   }
   // Anonymous
