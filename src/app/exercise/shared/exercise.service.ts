@@ -23,23 +23,28 @@ export class ExerciseService {
 
   constructor(private afs: AngularFirestore, public authService: AuthService, public afAuth: AngularFireAuth) {
 
-    // get the user it from authservice, here is a problem
+    // get the user it from authservice, here WAS a problem =)
     this.user = afAuth.authState;
     afAuth.authState.subscribe((user: firebase.User) => {
       if (user) {this.uid = user.uid};
       console.log('subscribe to af authstate: uid is: ' + this.uid);
+
+      this.userExercise = afs.doc<any>(`users/${this.uid}`);
+
+      this.exerciseCollection = this.userExercise.collection<Exercise>('exercises');
+      this.exercises = this.exerciseCollection.snapshotChanges()
+        .map(actions => {return actions.map(action => {
+          const data = action.payload.doc.data() as Exercise;
+          const id = action.payload.doc.id;
+          return {id, ...data};
+        })});
+
+
+
     });
     // this.currentUserId = this.afAuth.auth.currentUser.uid; // prevents the app from crash
-    this.userExercise = afs.doc<any>(`users/${this.afAuth.auth.currentUser.uid}`);
-    // this.userExercise = afs.doc<any>(`users/${this.uid}`);
+    // this.userExercise = afs.doc<any>(`users/${this.afAuth.auth.currentUser.uid}`);
 
-    this.exerciseCollection = this.userExercise.collection<Exercise>('exercises');
-    this.exercises = this.exerciseCollection.snapshotChanges()
-      .map(actions => {return actions.map(action => {
-        const data = action.payload.doc.data() as Exercise;
-        const id = action.payload.doc.id;
-        return {id, ...data};
-      })});
   }
   // Default error handling for all actions
   private handleError(error) {
