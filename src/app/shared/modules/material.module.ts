@@ -7,7 +7,9 @@ import {
   MatListModule,
   MatToolbarModule,
   MatIconModule,
-  MatDialogModule, MdDialog
+  MatDialogModule,
+  MdDialog,
+  MatSnackBarModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 
@@ -19,7 +21,8 @@ import {NgModule} from '@angular/core';
     MatListModule,
     MatToolbarModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
   ],
   exports: [
     MdButtonModule,
@@ -28,7 +31,8 @@ import {NgModule} from '@angular/core';
     MatListModule,
     MatToolbarModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [MdDialog]
 })

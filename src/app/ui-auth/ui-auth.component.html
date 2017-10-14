@@ -1,5 +1,17 @@
-<div *ngIf="authService.currentUser">
-  Logged in as {{authService.currentUserDisplayName}}
-  <md-icon><img [src]="authService.currentUser.photoURL" height="40px"></md-icon>
-  <button md-raised-button="" (click)="logout()">Log Out</button>
+<div *ngIf="authService.user | async; then authenticated else guest">
 </div>
+
+<ng-template #guest>
+  Hello guest, login to get started!
+</ng-template>
+
+<ng-template #authenticated>
+<div *ngIf="authService.user | async as user">
+  Hello {{user.displayName}} <img  [src]="user.photoURL" height="30px"> user UID: {{user.uid}}
+  <button md-raised-button="" (click)="authService.logout()">Log Out</button>
+</div>
+
+</ng-template>
+
+
+

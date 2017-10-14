@@ -36,6 +36,8 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
 import {UiAuthComponent} from './ui-auth/ui-auth.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import {AuthGuard} from "./shared/auth.guard";
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import {UiAuthComponent} from './ui-auth/ui-auth.component';
     FooterComponent,
     HomeComponent,
     UiAuthComponent,
+    ProfilePageComponent,
   ],
   imports: [
     // Shared
@@ -67,7 +70,7 @@ import {UiAuthComponent} from './ui-auth/ui-auth.component';
     // Routing
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

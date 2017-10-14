@@ -1,0 +1,14 @@
+<div *ngIf="authService.user | async; then authenticated else guest">
+</div>
+
+<ng-template #guest>
+  Hello guest, login to get started!
+</ng-template>
+
+<ng-template #authenticated>
+  <div *ngIf="authService.user | async as user">
+    Hello {{user.displayName}} <img  [src]="user.photoURL" height="100px"> user UID: {{user.uid}}
+  </div>
+
+</ng-template>
+
