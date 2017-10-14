@@ -19,7 +19,7 @@ export class ExerciseListComponent implements OnInit {
   username: String;
   userId: String;
 
-  constructor(private exerciseService: ExerciseService, private authService: AuthService) { }
+  constructor(private exerciseService: ExerciseService, private authService: AuthService, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
     // this.username = this.authService.currentUserDisplayName;
@@ -27,8 +27,10 @@ export class ExerciseListComponent implements OnInit {
     // console.log('authservice current user: ' + this.username);
     // console.log('authservice current userId: ' + this.userId);
     // console.log('current user exercise service: ' + this.exerciseService.currentUserId);
+
     this.exercises = this.exerciseService.getExerciseList();
     this.error = this.exerciseService.error;
+    this.userId = this.exerciseService.uid;
   }
 
 }

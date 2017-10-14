@@ -16,14 +16,22 @@ export class ExerciseService {
   exerciseCollection: AngularFirestoreCollection<Exercise>;
   exercises: Observable<Exercise[]>;
   error: string;
-  currentUserId: string;
+  uid: string;
   userExercise: AngularFirestoreDocument<any>;
+  user: Observable<User>;
+  authstate: any;
 
-  constructor(private afs: AngularFirestore, public authService: AuthService) {
+  constructor(private afs: AngularFirestore, public authService: AuthService, public afAuth: AngularFireAuth) {
 
     // get the user it from authservice, here is a problem
-
-    this.userExercise = afs.doc<any>(`users/${this.authService.currentUserId}`);
+    this.user = afAuth.authState;
+    afAuth.authState.subscribe((user: firebase.User) => {
+      if (user) {this.uid = user.uid};
+      console.log('subscribe to af authstate: uid is: ' + this.uid);
+    });
+    // this.currentUserId = this.afAuth.auth.currentUser.uid; // prevents the app from crash
+    this.userExercise = afs.doc<any>(`users/${this.afAuth.auth.currentUser.uid}`);
+    // this.userExercise = afs.doc<any>(`users/${this.uid}`);
 
     this.exerciseCollection = this.userExercise.collection<Exercise>('exercises');
     this.exercises = this.exerciseCollection.snapshotChanges()
