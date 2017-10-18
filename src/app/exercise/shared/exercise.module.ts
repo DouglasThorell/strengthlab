@@ -7,6 +7,7 @@ import {ExerciseDetailComponent, ExerciseDetailDialogComponent} from '../exercis
 import {ExerciseFormComponent} from '../exercise-form/exercise-form.component';
 import {ExerciseService} from './exercise.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CurrentSessionService} from '../../current-session/current-session-service';
 
 @NgModule({
   imports: [
@@ -20,13 +21,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ExerciseListComponent,
     ExerciseDetailComponent,
     ExerciseDetailDialogComponent,
-    ExerciseFormComponent
+    ExerciseFormComponent,
   ],
   entryComponents: [
   ExerciseDetailDialogComponent
   ],
   providers: [
-    ExerciseService
+    ExerciseService, CurrentSessionService
   ]
 })
 

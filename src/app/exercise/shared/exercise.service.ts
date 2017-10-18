@@ -30,7 +30,7 @@ export class ExerciseService {
       console.log('subscribe to af authstate: uid is: ' + this.uid);
 
       this.userExercise = afs.doc<any>(`users/${this.uid}`);
-
+      // why this mess and not .valuechanges? then we get no metadata, sorry
       this.exerciseCollection = this.userExercise.collection<Exercise>('exercises');
       this.exercises = this.exerciseCollection.snapshotChanges()
         .map(actions => {return actions.map(action => {

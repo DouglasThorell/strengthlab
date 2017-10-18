@@ -3,6 +3,7 @@ import {ExerciseService} from '../shared/exercise.service';
 import {Exercise} from '../shared/exercise';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import {Router} from '@angular/router';
+import {CurrentSessionService} from '../../current-session/current-session-service';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -13,11 +14,21 @@ export class ExerciseDetailComponent implements OnInit {
 
   @Input() exercise: Exercise;
   name: string;
+  currentExercise: any;
 
-  constructor(private router: Router, private exerciseService: ExerciseService, public dialog: MdDialog) {
+  constructor(private router: Router,
+              private exerciseService: ExerciseService,
+              public dialog: MdDialog,
+              private currentSessionService: CurrentSessionService) {
+    this.currentSessionService.currentExercise$.subscribe();
   }
 
   ngOnInit() {
+    this.announceExercise();
+  }
+
+  announceExercise() {
+    this.currentSessionService.announceExercise(this.currentExercise);
   }
 
   deleteExercise() {
@@ -27,13 +38,11 @@ export class ExerciseDetailComponent implements OnInit {
   updateExercise() {
     this.exerciseService.updateExercise(this.exercise, this.exercise.name)
   }
-  addSets() {
-    this.router.navigate(['/current-exercise', {exerciseName: this.exercise.name}])
-    console.log('button: add sets pushed');
-  } // Debugging with this implementation
 
   startSession() {
-    console.log('using startSession function, TODO')
+    console.log('using startSession function, TODO:' + this.exercise.id);
+    this.currentSessionService.announceExercise(this.exercise.id);
+    // this.router.navigate(['/current-session']);
   } // trying this way, choose the one that works =)
 
   openDialog() {
