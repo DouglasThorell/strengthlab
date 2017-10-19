@@ -42,7 +42,9 @@ export class ExerciseDetailComponent implements OnInit {
   startSession() {
     console.log('using startSession function, TODO:' + this.exercise.id);
     this.currentSessionService.announceExercise(this.exercise.id);
-    // this.router.navigate(['/current-session']);
+    this.currentSessionService.store = this.exercise.id;
+    console.log('currentSessionService store variable: ' + this.currentSessionService.store);
+    this.router.navigate(['/current-session']);
   } // trying this way, choose the one that works =)
 
   openDialog() {

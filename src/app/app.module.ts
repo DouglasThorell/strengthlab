@@ -40,6 +40,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import {AuthGuard} from "./shared/auth.guard";
 import { CurrentSessionComponent } from './current-session/current-session.component';
 import { SessionTitleComponent } from './current-session/session-title/session-title.component';
+import {CurrentSessionService} from "./current-session/current-session-service";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,7 @@ import { SessionTitleComponent } from './current-session/session-title/session-t
     // Routing
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, CurrentSessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

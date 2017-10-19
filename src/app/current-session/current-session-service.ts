@@ -5,13 +5,15 @@ import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class CurrentSessionService {
+
+  public store: string;
   // Observable string source
   private currentExerciseSource = new Subject<string>();
   private currentSessionSource = new Subject<string>();
 
   // Observable string stream
-  currentExercise$ = this.currentExerciseSource.asObservable();
-  currentSession$ = this.currentExerciseSource.asObservable();
+  public currentExercise$ = this.currentExerciseSource.asObservable();
+  public currentSession$ = this.currentExerciseSource.asObservable();
 
   // Service Message commands
   announceExercise(exercise: string) {

@@ -27,7 +27,7 @@ import {CurrentSessionService} from '../../current-session/current-session-servi
   ExerciseDetailDialogComponent
   ],
   providers: [
-    ExerciseService, CurrentSessionService
+    ExerciseService
   ]
 })
 

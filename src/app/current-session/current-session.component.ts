@@ -17,6 +17,7 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
 
   currentExercise = 'no exercise selected';
   subscription: Subscription;
+  value: string
 
   @Input() exercise: string;
 
@@ -31,6 +32,10 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
     this.currentExercise = this.route.snapshot.paramMap.get('id');
 
     this.currentSessionService.confirmExercise(this.exercise);
+    console.log('currentSessionStoreVariable: ' + this.currentSessionService.store);
+
+    this.value = this.currentSessionService.store;
+
   }
 
   ngOnDestroy() {
