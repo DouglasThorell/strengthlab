@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'exercise-list', component: ExerciseListComponent, canActivate: [AuthGuard]},
   {path: 'profile-page', component: ProfilePageComponent, canActivate: [AuthGuard]},
-  {path: 'current-session', component: CurrentSessionComponent, canActivate: [AuthGuard]}
+  {path: 'current-session/:id', component: CurrentSessionComponent, canActivate: [AuthGuard]}
 ]
 
 @NgModule({

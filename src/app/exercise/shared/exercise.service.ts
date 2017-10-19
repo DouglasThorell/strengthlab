@@ -73,5 +73,8 @@ export class ExerciseService {
       .then(result => {console.log(result.id + ' added to FireStore')}) // debugging
       .catch(error => this.handleError(error));
   }
+  getExercise(id: string) {
+    return this.userExercise.valueChanges()
+  }
 }
 
