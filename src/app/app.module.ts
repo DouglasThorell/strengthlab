@@ -38,6 +38,9 @@ import {HomeComponent} from './home/home.component';
 import {UiAuthComponent} from './ui-auth/ui-auth.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import {AuthGuard} from "./shared/auth.guard";
+import { CurrentSessionComponent } from './current-session/current-session.component';
+import { SessionTitleComponent } from './current-session/session-title/session-title.component';
+import {CurrentSessionService} from "./current-session/current-session-service";
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import {AuthGuard} from "./shared/auth.guard";
     HomeComponent,
     UiAuthComponent,
     ProfilePageComponent,
+    CurrentSessionComponent,
+    SessionTitleComponent,
   ],
   imports: [
     // Shared
@@ -70,7 +75,7 @@ import {AuthGuard} from "./shared/auth.guard";
     // Routing
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, CurrentSessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
