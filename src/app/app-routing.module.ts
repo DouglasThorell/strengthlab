@@ -6,7 +6,7 @@ import {NgModule} from '@angular/core';
 import {ExerciseListComponent} from './exercise/exercise-list/exercise-list.component';
 import {ProfilePageComponent} from './profile-page/profile-page.component';
 import {AuthGuard} from './shared/auth.guard';
-import {CurrentSessionComponent} from './current-session/current-session.component';
+import {CurrentSessionComponent} from './exercise/current-session/current-session.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},

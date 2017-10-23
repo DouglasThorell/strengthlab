@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Exercise} from '../exercise/shared/exercise';
+import {Exercise} from '../shared/exercise';
 import {Observable} from 'rxjs/Observable';
-import {ExerciseService} from '../exercise/shared/exercise.service';
+import {ExerciseService} from '../shared/exercise.service';
 import {CurrentSessionService} from './current-session-service';
 import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
@@ -11,7 +11,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
   selector: 'app-current-session',
   templateUrl: './current-session.component.html',
   styleUrls: ['./current-session.component.scss'],
-  providers: [CurrentSessionService]
+  // providers: [CurrentSessionService]
 })
 export class CurrentSessionComponent implements OnInit, OnDestroy {
 
@@ -27,8 +27,8 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
   constructor(private exerciseService: ExerciseService,
               private currentSessionService: CurrentSessionService,
               private route: ActivatedRoute) { // this is not really used right now, fix
-    this.subscription = currentSessionService.currentExercise$.subscribe(currentExercise => {this.currentExercise = currentExercise});
-    console.log(this.currentExercise);
+    this.subscription = currentSessionService.getExercise().subscribe(exercise => {this.value = exercise})
+
   }
 
   ngOnInit() {

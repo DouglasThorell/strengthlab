@@ -3,7 +3,8 @@ import {ExerciseService} from '../shared/exercise.service';
 import {Exercise} from '../shared/exercise';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import {Router} from '@angular/router';
-import {CurrentSessionService} from '../../current-session/current-session-service';
+import {CurrentSessionService} from '../current-session/current-session-service';
+import {MessageService} from "../../message.service";
 
 @Component({
   selector: 'app-exercise-detail',
@@ -19,7 +20,8 @@ export class ExerciseDetailComponent implements OnInit {
   constructor(private router: Router,
               private exerciseService: ExerciseService,
               public dialog: MdDialog,
-              private currentSessionService: CurrentSessionService) {
+              private currentSessionService: CurrentSessionService,
+              private messageService: MessageService) {
     this.currentSessionService.currentExercise$.subscribe();
   }
 
@@ -28,7 +30,7 @@ export class ExerciseDetailComponent implements OnInit {
   }
 
   announceExercise() {
-    this.currentSessionService.announceExercise(this.currentExercise);
+    this.currentSessionService.announceExercise('test message');
   }
 
   deleteExercise() {
@@ -41,11 +43,22 @@ export class ExerciseDetailComponent implements OnInit {
 
   startSession() {
     console.log('using startSession function, TODO:' + this.exercise.id);
-    this.currentSessionService.announceExercise(this.exercise.id);
-    this.currentSessionService.store = this.exercise.id;
-    console.log('currentSessionService store variable: ' + this.currentSessionService.store);
+    // this.announceExercise();
+    this.sendMessage()
     this.router.navigate(['/current-session/', this.exercise.id]);
   } // trying this way, choose the one that works =)
+
+
+  sendMessage(): void {
+    // send message to subscribers via observable subject
+    this.messageService.sendMessage('Message from tr.det Component to curr.sesh Component!');
+  }
+
+  clearMessage(): void {
+    // clear message
+    this.messageService.clearMessage();
+  }
+
 
   openDialog() {
     const dialogRef = this.dialog.open(ExerciseDetailDialogComponent, {

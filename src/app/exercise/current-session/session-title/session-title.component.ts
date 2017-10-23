@@ -11,12 +11,10 @@ export class SessionTitleComponent implements OnInit {
 
   @Input() title: string;
   subscription: Subscription;
-  currentExercise = 'no exercise selected yet';
+  currentExercise: any;
 
   constructor(private currentSessionService: CurrentSessionService) {
-    this.subscription = currentSessionService.currentExercise$.subscribe(currentExercise => {
-      this.currentExercise = currentExercise;
-    })
+    this.subscription = currentSessionService.getExercise().subscribe(exercise => {this.currentExercise = exercise});
   }
 
   ngOnInit() {

@@ -4,7 +4,7 @@ import {Exercise} from '../shared/exercise';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from "../../shared/auth.service";
 import {AngularFireAuth} from 'angularfire2/auth';
-import {CurrentSessionComponent} from '../../current-session/current-session.component'
+import {CurrentSessionComponent} from '../current-session/current-session.component'
 
 @Component({
   selector: 'app-exercise-list',
