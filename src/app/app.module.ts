@@ -55,6 +55,7 @@ import {MessageService} from "./message.service";
     HomeComponent,
     UiAuthComponent,
     ProfilePageComponent,
+    CurrentSessionComponent,
   ],
   imports: [
     // Shared

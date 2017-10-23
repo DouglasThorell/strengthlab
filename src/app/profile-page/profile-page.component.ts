@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../shared/auth.service';
+import {MessageService} from '../message.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-profile-page',
@@ -8,7 +10,13 @@ import {AuthService} from '../shared/auth.service';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  message: any;
+  subscription: Subscription;
+
+  constructor(private authService: AuthService,
+              private messageService: MessageService) {
+    this.subscription = this.messageService.getMessage().subscribe(message => { this.message = message; });
+  }
 
   ngOnInit() {
   }

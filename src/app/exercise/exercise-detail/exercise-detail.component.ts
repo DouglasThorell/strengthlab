@@ -44,14 +44,14 @@ export class ExerciseDetailComponent implements OnInit {
   startSession() {
     console.log('using startSession function, TODO:' + this.exercise.id);
     // this.announceExercise();
-    this.sendMessage()
-    this.router.navigate(['/current-session/', this.exercise.id]);
+    this.sendMessage();
+    // this.router.navigate(['/current-session/', this.exercise.id]);
   } // trying this way, choose the one that works =)
 
 
   sendMessage(): void {
     // send message to subscribers via observable subject
-    this.messageService.sendMessage('Message from tr.det Component to curr.sesh Component!');
+    this.messageService.sendMessage(this.exercise.name);
   }
 
   clearMessage(): void {

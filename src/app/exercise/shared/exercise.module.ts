@@ -31,7 +31,6 @@ import {SessionTitleComponent} from '../current-session/session-title/session-ti
     ExerciseDetailComponent,
     ExerciseDetailDialogComponent,
     ExerciseFormComponent,
-    CurrentSessionComponent,
     SessionTitleComponent
   ],
   entryComponents: [
