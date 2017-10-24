@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CurrentSessionService} from '../current-session-service';
 import {Subscription} from 'rxjs/Subscription';
+import {MessageService} from '../../../message.service';
+import {Exercise} from '../../shared/exercise';
 
 @Component({
   selector: 'app-session-title',
@@ -11,13 +12,18 @@ export class SessionTitleComponent implements OnInit {
 
   @Input() title: string;
   subscription: Subscription;
-  currentExercise: any;
+  message: any;
+  store: string;
+  currentExercise: Exercise;
 
-  constructor(private currentSessionService: CurrentSessionService) {
-    this.subscription = currentSessionService.getExercise().subscribe(exercise => {this.currentExercise = exercise});
+  constructor(private messageService: MessageService) {
+    this.subscription = this.messageService.getMessage().subscribe(message => {this.message = message})
   }
 
   ngOnInit() {
+    this.message = this.messageService.getMessage();
+    this.store = this.messageService.getStore();
+    this.currentExercise = this.messageService.getCurrentExercise();
   }
 
 }

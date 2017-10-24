@@ -1,1 +1,2 @@
-<div *ngIf="currentExercise">{{currentExercise}}</div>
+<md-card *ngIf="currentExercise;else noexercise">Current exercice is: {{currentExercise.name}} with id {{currentExercise.id}}</md-card>
+<ng-template #noexercise>No exercise selected!</ng-template>

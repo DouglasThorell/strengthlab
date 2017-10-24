@@ -13,10 +13,10 @@ import {ExerciseFormComponent} from '../exercise-form/exercise-form.component';
 // Forms, move to shared?
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // Services
-import {CurrentSessionService} from '../current-session/current-session-service';
+
 import {ExerciseService} from './exercise.service';
-import {CurrentSessionComponent} from '../current-session/current-session.component';
-import {SessionTitleComponent} from '../current-session/session-title/session-title.component';
+import {CurrentSessionService} from '../current-session/current-session-service';
+
 
 @NgModule({
   imports: [
@@ -30,8 +30,7 @@ import {SessionTitleComponent} from '../current-session/session-title/session-ti
     ExerciseListComponent,
     ExerciseDetailComponent,
     ExerciseDetailDialogComponent,
-    ExerciseFormComponent,
-    SessionTitleComponent
+    ExerciseFormComponent
   ],
   entryComponents: [
   ExerciseDetailDialogComponent

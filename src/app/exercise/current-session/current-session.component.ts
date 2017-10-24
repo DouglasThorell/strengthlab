@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {MessageService} from '../../message.service';
+import {SessionTitleComponent} from "./session-title/session-title.component";
 
 @Component({
   selector: 'app-current-session',
@@ -18,11 +19,11 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
 
   currentExercise = 'no exercise selected';
   subscription: Subscription;
-  value: any; // Debugging
-  private sub: any;
+  value: string; // Debugging
   id: string;
   exercise$: Observable<any>;
   message: string;
+  sub: Subscription;
 
   @Input() exercise: string; // clean up
 
@@ -48,7 +49,8 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-
+      this.sub = this.currentSessionService.getExercise().subscribe(message => this.value = message);
+      this.value = this.currentSessionService.getValue();
     // this.messageService.clearMessage();
 
    // this.message = this.messageService.getMessage().subscribe(message => {this.message = message});

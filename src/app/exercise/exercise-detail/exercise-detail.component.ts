@@ -45,8 +45,11 @@ export class ExerciseDetailComponent implements OnInit {
     console.log('using startSession function, TODO:' + this.exercise.id);
     // this.announceExercise();
     this.sendMessage();
+    this.messageService.setStore(this.exercise.id);
+    this.messageService.setCurrentExercise(this.exercise);
+    this.currentSessionService.setState(this.exercise.name);
     // this.router.navigate(['/current-session/', this.exercise.id]);
-  } // trying this way, choose the one that works =)
+    this.router.navigateByUrl('current-session')  } // trying this way, choose the one that works =)
 
 
   sendMessage(): void {
