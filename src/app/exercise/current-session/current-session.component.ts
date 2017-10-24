@@ -19,7 +19,7 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
 
   currentExercise = 'no exercise selected';
   subscription: Subscription;
-  value: string; // Debugging
+  value: any; // Debugging
   id: string;
   exercise$: Observable<any>;
   message: string;
@@ -33,6 +33,7 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
               private messageService: MessageService) { // this is not really used right now, fix
     // this.subscription = currentSessionService.getExercise().subscribe(exercise => {this.value = exercise})
               this.subscription = this.messageService.getMessage().subscribe(message => {this.message = message});
+              this.sub = this.currentSessionService.getState().subscribe(message => {this.value = message});
   }
 
   clearMessage() {
@@ -43,13 +44,13 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
   }
 
   doSubscribe() {
-    this.subscription = this.messageService.getMessage().subscribe(message => {this.message = message; });
+    this.currentSessionService.setState('new value');
   }
 
 
 
   ngOnInit() {
-      this.sub = this.currentSessionService.getExercise().subscribe(message => this.value = message);
+      // this.sub = this.currentSessionService.getExercise().subscribe(message => this.value = message);
       this.value = this.currentSessionService.getValue();
     // this.messageService.clearMessage();
 
@@ -68,8 +69,8 @@ export class CurrentSessionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
-    // this.sub.unsubscribe();
+    this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
 }

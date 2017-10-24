@@ -3,6 +3,8 @@
 <button md-button="" (click)="setMessage()">Set dummy msg</button>
 <button md-button="" (click)="doSubscribe()">Subscribe to msg service</button>-->
 
+<button md-button="" (click)="doSubscribe()">Emit new value on b-subject</button>
+
 <app-session-title></app-session-title>
 
-Value: {{this.value}}
+Value: <div *ngIf="value">{{value.toString()}}</div>
