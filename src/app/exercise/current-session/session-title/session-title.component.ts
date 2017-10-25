@@ -9,21 +9,14 @@ import {Exercise} from '../../shared/exercise';
   styleUrls: ['./session-title.component.scss']
 })
 export class SessionTitleComponent implements OnInit {
-
-  @Input() title: string;
   subscription: Subscription;
-  message: any;
-  store: string;
+  data: string;
   currentExercise: Exercise;
 
   constructor(private messageService: MessageService) {
-    this.subscription = this.messageService.getMessage().subscribe(message => {this.message = message})
+    this.subscription = this.messageService.getData().subscribe(data => {this.data = data})
   }
 
-  ngOnInit() {
-    this.message = this.messageService.getMessage();
-    this.store = this.messageService.getStore();
-    this.currentExercise = this.messageService.getCurrentExercise();
-  }
+  ngOnInit() {  }
 
 }

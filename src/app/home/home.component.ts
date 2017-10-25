@@ -8,20 +8,15 @@ import {Subscription} from 'rxjs/Subscription';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, DoCheck {
+export class HomeComponent implements OnInit {
 
-  message: any;
-  subscription: Subscription;
 
-  constructor(private messageService: MessageService) {
+  constructor() {
 
   }
 
   ngOnInit() {
   }
 
-  ngDoCheck() {
-    this.subscription = this.messageService.getMessage().subscribe(message => this.message = message)
-  }
 
 }

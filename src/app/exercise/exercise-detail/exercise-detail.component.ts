@@ -3,8 +3,7 @@ import {ExerciseService} from '../shared/exercise.service';
 import {Exercise} from '../shared/exercise';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import {Router} from '@angular/router';
-import {CurrentSessionService} from '../current-session/current-session-service';
-import {MessageService} from "../../message.service";
+import {MessageService} from '../../message.service';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -20,17 +19,10 @@ export class ExerciseDetailComponent implements OnInit {
   constructor(private router: Router,
               private exerciseService: ExerciseService,
               public dialog: MdDialog,
-              private currentSessionService: CurrentSessionService,
               private messageService: MessageService) {
-    this.currentSessionService.currentExercise$.subscribe();
   }
 
   ngOnInit() {
-    this.announceExercise();
-  }
-
-  announceExercise() {
-    this.currentSessionService.announceExercise('test message');
   }
 
   deleteExercise() {
@@ -42,14 +34,10 @@ export class ExerciseDetailComponent implements OnInit {
   }
 
   startSession() {
-    console.log('using startSession function, TODO:' + this.exercise.id);
-    // this.announceExercise();
-    this.sendMessage();
-    this.messageService.setStore(this.exercise.id);
-    this.messageService.setCurrentExercise(this.exercise);
-    this.currentSessionService.setState(this.exercise.name);
-    // this.router.navigate(['/current-session/', this.exercise.id]);
+
+    this.messageService.sendData(this.exercise.name);
     this.router.navigateByUrl('current-session')  } // trying this way, choose the one that works =)
+
 
 
   sendMessage(): void {

@@ -8,18 +8,12 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit, OnDestroy {
-  message: any;
-  subscription: Subscription;
 
-  constructor(private messageService: MessageService) {
-    // Sub to messages
-    this.subscription = this.messageService.getMessage().subscribe(message => {this.message = message})
-  }
+  constructor(private messageService: MessageService) {  }
 
   ngOnInit() {
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
 }

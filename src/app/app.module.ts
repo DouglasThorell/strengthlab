@@ -37,11 +37,10 @@ import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
 import {UiAuthComponent} from './ui-auth/ui-auth.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
-import {AuthGuard} from "./shared/auth.guard";
+import {AuthGuard} from './shared/auth.guard';
 import { CurrentSessionComponent } from './exercise/current-session/current-session.component';
 import { SessionTitleComponent } from './exercise/current-session/session-title/session-title.component';
-import {CurrentSessionService} from "./exercise/current-session/current-session-service";
-import {MessageService} from "./message.service";
+import {MessageService} from './message.service';
 
 @NgModule({
   declarations: [
