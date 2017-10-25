@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
+import {NotificationService} from "../notification.service";
 
 interface User {
   uid: string;
@@ -23,7 +24,8 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private router: Router) {
+              private router: Router,
+              private notificationService: NotificationService) {
     // Get authentication data, then map to FireStore Userdata
     this.user = this.afAuth.authState
       .switchMap(user => {
@@ -89,6 +91,7 @@ export class AuthService {
       .then((credential) => {
         this.authState = credential.user;
         this.updateUserData(credential.user);
+        this.notificationService.notification.next('Welcome back ' + this.currentUser.displayName)
       })
       .catch(error => console.log(error));
   }
@@ -137,7 +140,8 @@ export class AuthService {
   // Sign Out
   logout() {
     this.afAuth.auth.signOut()
-      .then(() => {this.router.navigate(['/'])});
+      .then(() => {this.router.navigate(['/'])})
+      .then(() => {this.notificationService.notification.next('Successfully Signed Out')});
   }
 
   //// Helpers ////

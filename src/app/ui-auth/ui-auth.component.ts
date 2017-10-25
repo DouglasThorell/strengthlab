@@ -13,7 +13,7 @@ export class UiAuthComponent implements OnInit {
   ngOnInit() {
   }
   logout() {
-    this.authService.logout()
+    this.authService.logout();
   }
 
 }

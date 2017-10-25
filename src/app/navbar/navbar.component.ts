@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NotificationService} from '../notification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private notificationService: NotificationService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
 
 }
