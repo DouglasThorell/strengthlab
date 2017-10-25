@@ -37,10 +37,10 @@ import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
 import {UiAuthComponent} from './ui-auth/ui-auth.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
-import {AuthGuard} from "./shared/auth.guard";
-import { CurrentSessionComponent } from './current-session/current-session.component';
-import { SessionTitleComponent } from './current-session/session-title/session-title.component';
-import {CurrentSessionService} from "./current-session/current-session-service";
+import {AuthGuard} from './shared/auth.guard';
+import { CurrentSessionComponent } from './exercise/current-session/current-session.component';
+import { SessionTitleComponent } from './exercise/current-session/session-title/session-title.component';
+import {MessageService} from './message.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import {CurrentSessionService} from "./current-session/current-session-service";
     UiAuthComponent,
     ProfilePageComponent,
     CurrentSessionComponent,
-    SessionTitleComponent,
+    SessionTitleComponent
   ],
   imports: [
     // Shared
@@ -75,7 +75,7 @@ import {CurrentSessionService} from "./current-session/current-session-service";
     // Routing
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuard, CurrentSessionService],
+  providers: [AuthService, AuthGuard, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
