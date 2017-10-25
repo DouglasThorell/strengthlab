@@ -41,6 +41,7 @@ import {AuthGuard} from './shared/auth.guard';
 import { CurrentSessionComponent } from './exercise/current-session/current-session.component';
 import { SessionTitleComponent } from './exercise/current-session/session-title/session-title.component';
 import {MessageService} from './message.service';
+import {NotificationService} from "./notification.service";
 
 @NgModule({
   declarations: [
@@ -75,7 +76,7 @@ import {MessageService} from './message.service';
     // Routing
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuard, MessageService],
+  providers: [AuthService, AuthGuard, MessageService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

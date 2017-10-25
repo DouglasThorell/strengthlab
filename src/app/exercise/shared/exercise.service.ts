@@ -9,6 +9,7 @@ import {AuthService} from '../../shared/auth.service';
 import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {User} from '../../shared/user';
+import {NotificationService} from "../../notification.service";
 
 @Injectable()
 export class ExerciseService {
@@ -21,7 +22,10 @@ export class ExerciseService {
   user: Observable<User>;
   authstate: any;
 
-  constructor(private afs: AngularFirestore, public authService: AuthService, public afAuth: AngularFireAuth) {
+  constructor(private afs: AngularFirestore,
+              public authService: AuthService,
+              public afAuth: AngularFireAuth,
+              private notificationService: NotificationService) {
 
     // get the user it from authservice, here WAS a problem =)
     this.user = afAuth.authState;
@@ -38,13 +42,7 @@ export class ExerciseService {
           const id = action.payload.doc.id;
           return {id, ...data};
         })});
-
-
-
     });
-    // this.currentUserId = this.afAuth.auth.currentUser.uid; // prevents the app from crash
-    // this.userExercise = afs.doc<any>(`users/${this.afAuth.auth.currentUser.uid}`);
-
   }
   // Default error handling for all actions
   private handleError(error) {
@@ -70,7 +68,10 @@ export class ExerciseService {
 
   createExercise(exercise: Exercise) {
     this.exerciseCollection.add(<Exercise>{name: exercise.name})
-      .then(result => {console.log(result.id + ' added to FireStore')}) // debugging
+      .then(result => {
+        console.log(result.id + ' added to FireStore');
+        this.notificationService.notification.next(exercise.name + ' added to Database');
+      }) // debugging
       .catch(error => this.handleError(error));
   }
   getExercise(id: string) {

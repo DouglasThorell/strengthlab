@@ -5,10 +5,11 @@ import {AuthService} from './auth.service';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
+import {NotificationService} from '../notification.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private notificationService: NotificationService) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -18,7 +19,8 @@ export class AuthGuard implements CanActivate {
       .map(user => !!user)
       .do(loggedIn => {
         if (!loggedIn) {
-          console.log('access denied')
+          console.log('access denied');
+          this.notificationService.notification.next('Please Log In First!')
           this.router.navigate(['/home']);
         }
       });

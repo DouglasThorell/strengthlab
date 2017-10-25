@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {NotificationService} from './notification.service';
+import {MdSnackBar} from '@angular/material';
 
 
 @Component({
@@ -8,7 +10,11 @@ import {Component} from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'Hello World!!!';
+
+
+  constructor(private notificationService: NotificationService, public snackBar: MdSnackBar) {
+    this.notificationService.notification.subscribe(message => {this.snackBar.open(message, 'OK', {duration: 1500 })})
+  }
 }
 
 
