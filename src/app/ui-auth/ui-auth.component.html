@@ -7,7 +7,7 @@
 
 <ng-template #authenticated>
 <div *ngIf="authService.user | async as user">
-  Hello {{user.displayName}} <img  [src]="user.photoURL" height="30px"> user UID: {{user.uid}}
+  Hello {{user.displayName}} <img  [src]="user.photoURL" height="30px">
   <button md-raised-button="" (click)="authService.logout()">Log Out</button>
 </div>
 
