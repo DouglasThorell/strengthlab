@@ -14,6 +14,7 @@ import {ExerciseFormComponent} from '../exercise-form/exercise-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // Services
 import {ExerciseService} from './exercise.service';
+import {TrainingSetService} from './training-set.service';
 
 
 
@@ -35,7 +36,8 @@ import {ExerciseService} from './exercise.service';
   ExerciseDetailDialogComponent
   ],
   providers: [
-    ExerciseService
+    ExerciseService,
+    TrainingSetService
   ]
 })
 

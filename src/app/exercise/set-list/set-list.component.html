@@ -1,5 +1,6 @@
-<md-list>
-  <p>
-    set-list works!
-  </p>
+<h2 *ngIf="error">{{error}}</h2>
+set-list-component
+<md-list *ngFor="let trainingSet of trainingSets | async">
+  <app-set-detail [trainingSet]="trainingSet"></app-set-detail>
+
 </md-list>

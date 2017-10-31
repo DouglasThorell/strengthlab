@@ -10,23 +10,25 @@ import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {User} from '../../shared/user';
 import {NotificationService} from '../../notification.service';
-import {Session} from './session';
+import {TrainingSet} from './training-set';
+import {MessageService} from '../../message.service';
 
 @Injectable()
-export class SessionService {
+export class TrainingSetService {
 
-  sessionCollection: AngularFirestoreCollection<Session>;
-  sessions: Observable<Session[]>;
+  setCollection: AngularFirestoreCollection<TrainingSet>;
+  sets: Observable<TrainingSet[]>;
   error: string;
   uid: string;
-  userSession: AngularFirestoreDocument<any>;
+  userExerciseSet: AngularFirestoreDocument<any>;
   user: Observable<User>;
-  authstate: any;
+  currentExercise: Observable<string>;
 
   constructor(private afs: AngularFirestore,
               public authService: AuthService,
               public afAuth: AngularFireAuth,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private messageService: MessageService) {
 
     // get the user it from authservice, here WAS a problem =)
     this.user = afAuth.authState;
@@ -34,12 +36,15 @@ export class SessionService {
       if (user) {this.uid = user.uid}
       console.log('subscribe to af authstate: uid is: ' + this.uid);
 
-      this.userSession = afs.doc<any>(`users/${this.uid}`);
+      // get the current exercise
+      this.messageService.getData().subscribe(data => {this.currentExercise = data});
+
+      this.userExerciseSet = afs.doc<any>(`users/${this.uid}/exercises/${this.currentExercise}`);
       // why this mess and not .valuechanges? then we get no metadata, sorry
-      this.sessionCollection = this.userSession.collection<Session>('sessions');
-      this.sessions = this.sessionCollection.snapshotChanges()
+      this.setCollection = this.userExerciseSet.collection<TrainingSet>('trainingsets');
+      this.sets = this.setCollection.snapshotChanges()
         .map(actions => {return actions.map(action => {
-          const data = action.payload.doc.data() as Session;
+          const data = action.payload.doc.data() as TrainingSet;
           const id = action.payload.doc.id;
           return {id, ...data};
         })});
@@ -52,32 +57,30 @@ export class SessionService {
   }
 
 
-  getSessionList() {
-    return this.sessions;
+  getTrainingSetList() {
+    return this.sets;
   }
 
-  deleteSession(session: Session) {
-    this.sessionCollection.doc(session.id).delete()
-      .then(result => {console.log(session.id + ' deleted')})
+  deleteTrainingSet(trainingSet: TrainingSet) {
+    this.setCollection.doc(trainingSet.id).delete()
+      .then(result => {console.log(trainingSet.id + ' deleted')})
       .catch(error => {this.handleError(error)});
   }
 
-  updateSession(session: Session, name: string) {
-    this.sessionCollection.doc(session.id).update({name: name})
+  updateTrainingSet(trainingSet: TrainingSet, name: string) {
+    this.setCollection.doc(trainingSet.id).update({name: name})
       .catch(error => this.handleError(error));
   }
 
-  createSession(session: Session) {
-    this.sessionCollection.add(<Exercise>{name: session.name})
+  createTrainingSet(trainingSet: TrainingSet) {
+    this.setCollection.add(<TrainingSet>{reps: trainingSet.reps, weight: trainingSet.weight})
       .then(result => {
         console.log(result.id + ' added to FireStore');
-        this.notificationService.notification.next(session.name + ' added to Database');
+        this.notificationService.notification.next(trainingSet.id + ' added to Database');
       }) // debugging
       .catch(error => this.handleError(error));
   }
-  getSession(id: string) {
-    return this.userSession.valueChanges()
+  getTrainingSet(id: string) {
+    return this.userExerciseSet.valueChanges()
   }
 }
-
-

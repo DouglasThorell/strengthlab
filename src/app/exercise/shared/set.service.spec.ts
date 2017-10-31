@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SetService } from './set.service';
+import { SetService } from './training-set.service';
 
 describe('SetService', () => {
   beforeEach(() => {

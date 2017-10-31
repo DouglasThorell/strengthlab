@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TrainingSet} from '../shared/training-set';
 
 @Component({
   selector: 'app-set-detail',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./set-detail.component.scss']
 })
 export class SetDetailComponent implements OnInit {
+
+  @Input() trainingSet: TrainingSet;
 
   constructor() { }
 

@@ -1,6 +1,8 @@
 export class Exercise {
   $key: string;
   name: string;
-  timeStamp: number;
+  createdAt: number;
+  updatedAt: number;
   id: string;
+  active: boolean;
 }

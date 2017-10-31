@@ -1,4 +1,4 @@
-export class Set {
+export class TrainingSet {
   exerciseName: string;
   createdAt: number;
   updatedAt: number;

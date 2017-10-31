@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Set } from "../shared/set";
+import { TrainingSet } from '../shared/training-set';
+import {TrainingSetService} from '../shared/training-set.service';
 
 @Component({
   selector: 'app-set-form',
@@ -8,11 +9,15 @@ import { Set } from "../shared/set";
 })
 export class SetFormComponent implements OnInit {
 
-  constructor() { }
+  trainingSet: TrainingSet = new TrainingSet();
+
+  constructor(private trainingSetService: TrainingSetService) { }
 
   ngOnInit() {
   }
-  createSet() {
+  createTrainingSet() {
+    this.trainingSetService.createTrainingSet(this.trainingSet);
+    this.trainingSet = new TrainingSet();
   }
 
 }

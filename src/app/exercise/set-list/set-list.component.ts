@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {TrainingSet} from '../shared/training-set';
+import {TrainingSetService} from '../shared/training-set.service';
 
 @Component({
   selector: 'app-set-list',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SetListComponent implements OnInit {
 
-  constructor() { }
+  trainingSets: Observable<TrainingSet[]>;
+  error: string;
+
+  constructor(private trainingSetService: TrainingSetService) { }
 
   ngOnInit() {
+    this.trainingSets = this.trainingSetService.getTrainingSetList();
+    this.error = this.trainingSetService.error;
   }
 
 }
