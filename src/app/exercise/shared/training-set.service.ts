@@ -12,6 +12,7 @@ import {User} from '../../shared/user';
 import {NotificationService} from '../../notification.service';
 import {TrainingSet} from './training-set';
 import {MessageService} from '../../message.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Injectable()
 export class TrainingSetService {
@@ -22,7 +23,9 @@ export class TrainingSetService {
   uid: string;
   userExerciseSet: AngularFirestoreDocument<any>;
   user: Observable<User>;
-  currentExercise: Observable<string>;
+  currentExercise: string;
+  subscription: Subscription;
+  trainingSet: TrainingSet;
 
   constructor(private afs: AngularFirestore,
               public authService: AuthService,
@@ -37,17 +40,19 @@ export class TrainingSetService {
       console.log('subscribe to af authstate: uid is: ' + this.uid);
 
       // get the current exercise
-      this.messageService.getData().subscribe(data => {this.currentExercise = data});
+      this.subscription = this.messageService.getData().subscribe(exercise => {this.currentExercise = exercise
+        console.log(this.currentExercise);
 
-      this.userExerciseSet = afs.doc<any>(`users/${this.uid}/exercises/${this.currentExercise}`);
-      // why this mess and not .valuechanges? then we get no metadata, sorry
-      this.setCollection = this.userExerciseSet.collection<TrainingSet>('trainingsets');
-      this.sets = this.setCollection.snapshotChanges()
-        .map(actions => {return actions.map(action => {
-          const data = action.payload.doc.data() as TrainingSet;
-          const id = action.payload.doc.id;
-          return {id, ...data};
-        })});
+        this.userExerciseSet = afs.doc<any>(`users/${this.uid}/exercises/${this.currentExercise}`);
+        // why this mess and not .valuechanges? then we get no metadata, sorry
+        this.setCollection = this.userExerciseSet.collection<TrainingSet>('trainingsets');
+        this.sets = this.setCollection.snapshotChanges()
+          .map(actions => {return actions.map(action => {
+            const data2 = action.payload.doc.data() as TrainingSet;
+            const id = action.payload.doc.id;
+            return {id, ...data2};
+          })});
+      });
     });
   }
   // Default error handling for all actions
@@ -76,7 +81,7 @@ export class TrainingSetService {
     this.setCollection.add(<TrainingSet>{reps: trainingSet.reps, weight: trainingSet.weight})
       .then(result => {
         console.log(result.id + ' added to FireStore');
-        this.notificationService.notification.next(trainingSet.id + ' added to Database');
+        this.notificationService.notification.next(trainingSet.reps + ' reps @ ' + trainingSet.weight + ' kg:s added');
       }) // debugging
       .catch(error => this.handleError(error));
   }
