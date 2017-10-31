@@ -42,6 +42,9 @@ import { CurrentSessionComponent } from './exercise/current-session/current-sess
 import { SessionTitleComponent } from './exercise/current-session/session-title/session-title.component';
 import {MessageService} from './message.service';
 import {NotificationService} from "./notification.service";
+import { SetFormComponent } from './exercise/set-form/set-form.component';
+import { SetListComponent } from './exercise/set-list/set-list.component';
+import { SetDetailComponent } from './exercise/set-detail/set-detail.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import {NotificationService} from "./notification.service";
     UiAuthComponent,
     ProfilePageComponent,
     CurrentSessionComponent,
-    SessionTitleComponent
+    SessionTitleComponent,
+    SetFormComponent,
+    SetListComponent,
+    SetDetailComponent
   ],
   imports: [
     // Shared

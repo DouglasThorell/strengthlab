@@ -10,11 +10,13 @@ import {Exercise} from '../../shared/exercise';
 })
 export class SessionTitleComponent implements OnInit {
   subscription: Subscription;
+  exerciseSubscription: Subscription;
   data: string;
   currentExercise: Exercise;
 
   constructor(private messageService: MessageService) {
-    this.subscription = this.messageService.getData().subscribe(data => {this.data = data})
+    this.subscription = this.messageService.getData().subscribe(data => {this.data = data});
+    this.exerciseSubscription = this.messageService.getExercise().subscribe(exercise => {this.currentExercise = exercise})
   }
 
   ngOnInit() {  }

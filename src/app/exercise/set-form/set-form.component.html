@@ -1,0 +1,11 @@
+<md-form-field>
+  <input mdInput placeholder="Reps"
+  [(ngModel)]="trainingSet.reps">
+</md-form-field>
+<md-form-field>
+  <input mdInput placeholder="Weight"
+  [(ngModel)]="trainingSet.weight">
+</md-form-field>
+
+
+<button md-raised-button color="accent" (click)='createTrainingSet()' >Add Set</button>

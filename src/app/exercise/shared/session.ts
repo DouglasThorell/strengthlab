@@ -1,5 +1,4 @@
-export class Exercise {
-  $key: string;
+export class Session {
   name: string;
   createdAt: number;
   updatedAt: number;
