@@ -36,6 +36,7 @@ export class ExerciseDetailComponent implements OnInit {
   startSession() {
 
     this.messageService.sendData(this.exercise.id);
+    this.messageService.sendExercise(this.exercise);
     this.router.navigateByUrl('current-session')  } // trying this way, choose the one that works =)
 
 

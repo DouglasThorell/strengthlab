@@ -17,6 +17,8 @@ export class MessageService {
 
   // SubjectObservable
   private behaviorSubject = new BehaviorSubject('initial value');
+  // Testing with Object
+  private exerciseBehaviorSubject = new BehaviorSubject(null);
 
   // SubjectObservable Functions
   sendData(data: string) {
@@ -27,6 +29,16 @@ export class MessageService {
   }
   getDataValue(): string {
     return this.behaviorSubject.getValue();
+  }
+  // Exercise Specific (Yes it works to send objects using the msg-service. This is nice.)
+  sendExercise(exercise: Exercise) {
+    this.exerciseBehaviorSubject.next(exercise);
+  }
+  getExercise(): Observable<Exercise> {
+    return this.exerciseBehaviorSubject;
+  }
+  getExerciseValue(): Exercise {
+    return this.exerciseBehaviorSubject.getValue();
   }
 
   // Subject Functions
