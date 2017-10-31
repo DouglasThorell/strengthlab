@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 // FireStore
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 // Our class exercise
@@ -15,7 +15,7 @@ import {MessageService} from '../../message.service';
 import {Subscription} from 'rxjs/Subscription';
 
 @Injectable()
-export class TrainingSetService {
+export class TrainingSetService implements OnDestroy {
 
   setCollection: AngularFirestoreCollection<TrainingSet>;
   sets: Observable<TrainingSet[]>;
@@ -40,7 +40,7 @@ export class TrainingSetService {
       console.log('subscribe to af authstate: uid is: ' + this.uid);
 
       // get the current exercise
-      this.subscription = this.messageService.getData().subscribe(exercise => {this.currentExercise = exercise
+      this.subscription = this.messageService.getData().subscribe(exercise => {this.currentExercise = exercise;
         console.log(this.currentExercise);
 
         this.userExerciseSet = afs.doc<any>(`users/${this.uid}/exercises/${this.currentExercise}`);
@@ -87,5 +87,9 @@ export class TrainingSetService {
   }
   getTrainingSet(id: string) {
     return this.userExerciseSet.valueChanges()
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

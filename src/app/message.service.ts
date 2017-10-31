@@ -14,11 +14,19 @@ export class MessageService {
   private subject = new Subject<any>();
   private store: string; // Added this because I couldn't get the observable to fully work when switching routes
   private exercise: Exercise;
+  private dummyExercise: Exercise = {
+    $key: 'xx',
+    name: 'no exercise',
+    createdAt: 0,
+    updatedAt: 0,
+    id: '0',
+    active: false
+  };
 
   // SubjectObservable
   private behaviorSubject = new BehaviorSubject('initial value');
   // Testing with Object
-  private exerciseBehaviorSubject = new BehaviorSubject(null);
+  private exerciseBehaviorSubject = new BehaviorSubject(this.dummyExercise);
 
   // SubjectObservable Functions
   sendData(data: string) {
