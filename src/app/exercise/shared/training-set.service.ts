@@ -55,6 +55,11 @@ export class TrainingSetService implements OnDestroy {
       });
     });
   }
+  // Helper to get correct time value from server
+  get timestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp()
+  }
+
   // Default error handling for all actions
   private handleError(error) {
     console.log(error);
@@ -72,13 +77,13 @@ export class TrainingSetService implements OnDestroy {
       .catch(error => {this.handleError(error)});
   }
 
-  updateTrainingSet(trainingSet: TrainingSet, name: string) {
-    this.setCollection.doc(trainingSet.id).update({name: name})
+  updateTrainingSet(trainingSet: TrainingSet, reps: number, weight: number) {
+    this.setCollection.doc(trainingSet.id).update({reps: reps, weight: weight, updatedAt: this.timestamp})
       .catch(error => this.handleError(error));
   }
 
   createTrainingSet(trainingSet: TrainingSet) {
-    this.setCollection.add(<TrainingSet>{reps: trainingSet.reps, weight: trainingSet.weight})
+    this.setCollection.add(<TrainingSet>{reps: trainingSet.reps, weight: trainingSet.weight, createdAt: this.timestamp})
       .then(result => {
         console.log(result.id + ' added to FireStore');
         this.notificationService.notification.next(trainingSet.reps + ' reps @ ' + trainingSet.weight + ' kg:s added');
