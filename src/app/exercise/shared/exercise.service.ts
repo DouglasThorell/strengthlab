@@ -50,6 +50,9 @@ export class ExerciseService {
     this.error = error;
   }
 
+  get timestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp()
+  }
 
   getExerciseList() {
     return this.exercises;
@@ -62,12 +65,17 @@ export class ExerciseService {
   }
 
   updateExercise(exercise: Exercise, name: string) {
-    this.exerciseCollection.doc(exercise.id).update({name: name})
+    this.exerciseCollection.doc(exercise.id).update({name: name, updatedAt: this.timestamp})
       .catch(error => this.handleError(error));
   }
 
+  updateExerciseTime(exercise: Exercise) {
+    this.exerciseCollection.doc(exercise.id).update({usedAt: this.timestamp})
+      .catch((error => this.handleError(error)));
+  }
+
   createExercise(exercise: Exercise) {
-    this.exerciseCollection.add(<Exercise>{name: exercise.name})
+    this.exerciseCollection.add(<Exercise>{name: exercise.name, createdAt: this.timestamp})
       .then(result => {
         console.log(result.id + ' added to FireStore');
         this.notificationService.notification.next(exercise.name + ' added to Database');

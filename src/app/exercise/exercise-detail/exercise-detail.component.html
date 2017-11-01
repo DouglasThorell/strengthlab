@@ -3,4 +3,5 @@
   <button md-button="" color="warn" (click)='deleteExercise()'>Delete Exercise!</button>
   <button md-button="" color="accent" (click)='openDialog()'>Update Exercise</button>
   <button md-button="" color="primary" (click)='startSession()'>Start lifting!</button>
+  Last trained: {{exercise.usedAt || 'Never'}}
 </md-list-item>

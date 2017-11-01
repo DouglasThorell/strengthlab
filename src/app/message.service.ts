@@ -14,6 +14,7 @@ export class MessageService {
   private subject = new Subject<any>();
   private store: string; // Added this because I couldn't get the observable to fully work when switching routes
   private exercise: Exercise;
+
   private dummyExercise: Exercise = {
     $key: 'xx',
     name: 'no exercise',
