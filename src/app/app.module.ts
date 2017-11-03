@@ -45,6 +45,7 @@ import {NotificationService} from "./notification.service";
 import { SetFormComponent } from './exercise/set-form/set-form.component';
 import { SetListComponent } from './exercise/set-list/set-list.component';
 import { SetDetailComponent } from './exercise/set-detail/set-detail.component';
+import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { SetDetailComponent } from './exercise/set-detail/set-detail.component';
     SessionTitleComponent,
     SetFormComponent,
     SetListComponent,
-    SetDetailComponent
+    SetDetailComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     // Shared
