@@ -64,7 +64,6 @@ import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.co
     SetFormComponent,
     SetListComponent,
     SetDetailComponent,
-    LoadingSpinnerComponent
   ],
   imports: [
     // Shared
