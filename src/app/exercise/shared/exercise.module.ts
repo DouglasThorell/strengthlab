@@ -9,6 +9,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {ExerciseListComponent} from '../exercise-list/exercise-list.component';
 import {ExerciseDetailComponent, ExerciseDetailDialogComponent} from '../exercise-detail/exercise-detail.component';
 import {ExerciseFormComponent} from '../exercise-form/exercise-form.component';
+import {LoadingSpinnerComponent} from "../../ui/loading-spinner/loading-spinner.component";
 
 // Forms, move to shared?
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -30,7 +31,8 @@ import {TrainingSetService} from './training-set.service';
     ExerciseListComponent,
     ExerciseDetailComponent,
     ExerciseDetailDialogComponent,
-    ExerciseFormComponent
+    ExerciseFormComponent,
+    LoadingSpinnerComponent
   ],
   entryComponents: [
   ExerciseDetailDialogComponent

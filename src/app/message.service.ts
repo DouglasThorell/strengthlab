@@ -16,12 +16,12 @@ export class MessageService {
   private exercise: Exercise;
 
   private dummyExercise: Exercise = {
-    $key: 'xx',
     name: 'no exercise',
     createdAt: 0,
     updatedAt: 0,
     id: '0',
-    active: false
+    active: false,
+    usedAt: 0
   };
 
   // SubjectObservable
