@@ -5,18 +5,20 @@ follow other athletes and their progress, compare stats and comment on workouts.
 a [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) and be platform independent. 
 Google Cloud FireStore (currently in a working BETA) is used as database which allows for offline capabilities and
 real-time data updates accross devices. This was chosen over Firebase since Firebase only allows for offline data
-on mobile devices. 
+on mobile devices and has a much nicer datastructure in the long run. 
 
 ## Frontend Framework
 [Angular Material](https://material.angular.io/) is used for the basic styling, on top of that the layout is to
 be decided but most likely it will be FlexLayout which also has official Angular support.  
 
 ## Current Status
-The Application is in a very early version with only the most basic functionalities implemented.
+2017-11-13: The Application is in a very early version with only the most basic functionalities implemented. For device
+testing we run a dev-server on (http://schwiftyconsulting.servehttp.com).
 
 ## Getting started
 Clone the repo and run `npm install` with write privileges to install dependencies. To clean up 
-and re-install node_modules use `rimraf` followed by `npm install`. 
+and re-install node_modules use `rimraf` (`npm install rimraf`) followed by `npm install`. The app is backendless but for
+future functionalities and to able to deploy on a development server there is a node server (express). 
 
 ## Angular Style Guide
 There are many ways to write TypeScript for Angular, to keep it simple this project follows the official 
